@@ -30,9 +30,10 @@
             <div class="row-filter">
                 <select id="filter-status">
                     <option value="all">Todos</option>
-                    <option value="delivered">Entregado</option>
-                    <option value="pending">Pendiente</option>
-                    <option value="canceled">Cancelado</option>
+                    <option value="Entregado">Entregado</option>
+                    <option value="Transportado">Transportado</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Cancelado">Cancelado</option>
                 </select>
                 <label for="filter-date-start">Fecha de pedido:</label>
                 <input type="date" id="filter-date-start">

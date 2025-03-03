@@ -18,9 +18,9 @@ p{
 
 
 /*-------- Apartado historial -----------*/
-.orders-container {
+.my-container {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 12px auto;
     padding: 20px;
     background: white;
     border-radius: 8px;
@@ -60,12 +60,12 @@ p{
     gap: 5px;
 }
 
-.orders-list {
-    max-height: 400px;
+.myProduct-list {
+    max-height: 520px;
     overflow-y: auto;
 }
 
-.order-item {
+.product-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -76,21 +76,21 @@ p{
     border-radius: 5px;
 }
 
-.order-item img {
+.product-item img {
     width: 90px;
     height: 90px;
     object-fit: cover;
     border-radius: 5px;
 }
-.order-date{
+.product-date{
     text-align: end;
     color: #585858;
 }
-.order-split{
+.product-split{
     display: flex;
     justify-content: space-between;
 }
-.order-details {
+.product-details {
     flex-grow: 1;
     margin-left: 10px;
 }
@@ -112,21 +112,20 @@ p{
 .status {
     font-weight: bold;
     text-transform: capitalize;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 20px;
 }
 
 .status.Pendiente {
-    color: orange;
+    background-color: orange;
 }
 
-.status.Transportado {
-    color: #0088db;
+.status.Aceptado {
+    background-color: green;
 }
-
-.status.Entregado {
-    color: green;
-}
-.status.Cancelado {
-    color: rgb(126, 42, 42);
+.status.Rechazado {
+    background-color: #992b2b;
 }
 
 .link-item{
