@@ -48,7 +48,7 @@
         }
     </style>
 </head>
-<body class="relative bg-gray-100">
+<body class="bg-gray-100">
     
     <nav class=" ml-64 bg shadow-md custom-nav flex items-center pl-4 transition-all duration-300 z-30" id="navbar">
         <button id="menuToggle" class="text-white bg-orange-500 p-2 rounded ml-5 mr-5">&#9776;</button>

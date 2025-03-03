@@ -8,38 +8,47 @@
     <title>X titulo</title>
 </head>
 
-<body>
-    <header>
-        <!-- Agregar NavBar Aquí -->
-    </header>
-    <div class="chat-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <input type="text" placeholder="Buscar..."  id="search-bar" class="search-bar">
-            <hr>
-            <ul id="contact-list" class="contact-list">
-                <!--Aquí se llenan los contactos-->
-            </ul>
-        </div>
+<header>
+    <?php include('navbar.php'); ?>
+</header>
 
-        <!-- Zona de chat -->
-        <div class="chat-box">
-            <div class="chat-header">
-                <img id="chat-img" src="../recursos/gato2.jpeg" alt="Vendedor">
-                <span id="chat-name">Selecciona un vendedor</span>
+<body>
+
+    <div id="main-content" class="flex justify-center transition-all duration-300 p-6 bg-orange-100 ml-64">
+
+        <div class="chat-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <input type="text" placeholder="Buscar..."  id="search-bar" class="search-bar">
+                <hr>
+                <ul id="contact-list" class="contact-list">
+                    <!--Aquí se llenan los contactos-->
+                </ul>
             </div>
-            <div class="chat-content" id="chat-content">
-                <p>Selecciona un contacto para empezar a chatear.</p>
+
+            <!-- Zona de chat -->
+            <div class="chat-box">
+                <div class="chat-header">
+                    <img id="chat-img" src="../recursos/gato2.jpeg" alt="Vendedor">
+                    <span id="chat-name">Selecciona un vendedor</span>
+                </div>
+                <div class="chat-content" id="chat-content">
+                    <p>Selecciona un contacto para empezar a chatear.</p>
+                </div>
+                <div class="chat-input">
+                    <button id="quote-btn">+</button>
+                    <input type="text" id="message-input" placeholder="Escribe un mensaje...">
+                    <button id="send-btn">Enviar</button>
+                </div>
             </div>
-            <div class="chat-input">
-                <button id="quote-btn">+</button>
-                <input type="text" id="message-input" placeholder="Escribe un mensaje...">
-                <button id="send-btn">Enviar</button>
-            </div>
+
         </div>
+    
+
 
     </div>
     <script src="../js/script_chat.js"></script>
+
 </body>
 
 </html>

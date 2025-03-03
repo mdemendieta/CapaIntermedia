@@ -42,7 +42,7 @@
                 <input type="date" placeholder="Fecha de nacimiento" class="w-full p-2 mb-2 border rounded">
                 </div>
 
-                <button class="w-full bg-green-500 text-white py-2 rounded col-start-2">Actualizar Datos</button>
+                <button class="w-full bg-green-500 text-white py-2 rounded col-start-2">Publicar</button>
                 
             </div>
     </div>

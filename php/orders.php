@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -7,13 +7,13 @@
     <title>Historial de Pedidos</title>
     <link rel="stylesheet" href="../css/styles_orders.css">
 </head>
-
-<body>
 <header>
 <?php include('navbar.php'); ?>
 </header>
 
+<body class="flex flex-col">
 
+<div id="main-content" class="flex justify-center transition-all duration-300 p-6 bg-orange-100 ml-64">
 
     <div class="orders-container">
         <!-- Barra de búsqueda y filtros -->
@@ -48,7 +48,7 @@
             <!-- Los pedidos se generarán dinámicamente aquí -->
         </div>
     </div>
-
+</div>
     <script src="../js/script_orders.js"></script>
 </body>
 

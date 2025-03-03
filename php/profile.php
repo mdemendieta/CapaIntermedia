@@ -9,13 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles_profile.css">
     <title>X titulo</title>
+    
 </head>
 
 <header>
-<?php include('navbar.php'); ?>
+    <?php include('navbar.php'); ?>
 </header>
 
 <body>
+    <div id="main-content" class="flex justify-center transition-all duration-300 p-6 min-h-screen bg-orange-100 ml-64 ">
+
         <div class="profile-card">
             <div class="card-header">
                 <div class="section-left">
@@ -44,6 +47,7 @@
                 </div>
             </div>
         </div>
+     </div>
     <script type="module" src="../js/script_profile.js"></script>
 </body>
 
