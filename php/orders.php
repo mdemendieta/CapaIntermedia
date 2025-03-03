@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Pedidos</title>
+    <link rel="stylesheet" href="../css/styles_orders.css">
+</head>
+
+<body>
+    <header>
+        <h2>Historial de Pedidos</h2>
+    </header>
+
+    <div class="orders-container">
+        <!-- Barra de búsqueda y filtros -->
+        <div class="filters">
+            <input type="text" id="search-bar" placeholder="Buscar pedido...">
+            <div class="advance-filter">
+                <select id="filter-status">
+                    <option value="all">Todos</option>
+                    <option value="delivered">Entregado</option>
+                    <option value="pending">Pendiente</option>
+                    <option value="canceled">Cancelado</option>
+                </select>
+                <label for="filter-date-start">Fecha de pedido:</label>
+                <input type="date" id="filter-date-start">
+                <label for="filter-date-end">Fecha de entregado:</label>
+                <input type="date" id="filter-date-end">
+            </div>
+        </div>
+
+        <!-- Lista de pedidos -->
+        <div id="orders-list" class="orders-list">
+            <!-- Los pedidos se generarán dinámicamente aquí -->
+        </div>
+    </div>
+
+    <script src="../js/script_orders.js"></script>
+</body>
+
+</html>

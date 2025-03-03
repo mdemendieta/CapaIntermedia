@@ -15,17 +15,10 @@
     <div class="chat-container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <input type="text" placeholder="Buscar..." class="search-bar">
+            <input type="text" placeholder="Buscar..."  id="search-bar" class="search-bar">
             <hr>
             <ul id="contact-list" class="contact-list">
-                <li class="contact" data-contact="Vendedor1">
-                    <img src="../recursos/gato1.jpg" alt="Vendedor1">
-                    <span>Miguel Nuñez</span>
-                </li>
-                <li class="contact" data-contact="Vendedor2">
-                    <img src="../recursos/huron.jpg" alt="Vendedor2">
-                    <span>Juan Pérez</span>
-                </li>
+                <!--Aquí se llenan los contactos-->
             </ul>
         </div>
 
