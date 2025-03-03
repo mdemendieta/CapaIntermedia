@@ -15,7 +15,7 @@
     
     <div id="main-content" class="flex transition-all duration-300 p-6 bg-orange-100 min-h-screen justify-center ml-64">
 
-    <div id="registerForm" class="flex flex-col items-center w-[70%]">
+    <div id="EditarPerfilForm" class="flex flex-col items-center w-[70%]">
                 <h2 class="text-lg font-bold mb-4">Modificar Información Personal</h2>
                 <div class="relative flex items-center justify-center">
                     <img src="../recursos/perfilvacio.jpg" alt="Foto de perfil" class="h-[150px] w-[150px] rounded-full mb-4" id="profilePic">
