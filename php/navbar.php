@@ -4,11 +4,11 @@
         'Mis Listas' => 'mislistas.php',
         'Carrito' => 'carrito.php',
         'Chat' => 'chat.php',
-        'historial de pedidos' => 'chat.php',
+        'historial de pedidos' => 'orders.php',
         'crear admin' => 'altaadmin.php',
         'productos pendientes por aprobar' => 'chat.php',
         'Publicar un producto' => 'altaproducto.php',
-        'Mi perfil' => 'chat.php',
+        'Mi perfil' => 'profile.php',
         'Editar' => 'editarperfil.php',
 
     ];

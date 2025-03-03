@@ -11,12 +11,11 @@
     <title>X titulo</title>
 </head>
 
-<body>
-    <header>
-        <!-- Agregar NavBar Aquí -->
-    </header>
+<header>
+<?php include('navbar.php'); ?>
+</header>
 
-    <main>
+<body>
         <div class="profile-card">
             <div class="card-header">
                 <div class="section-left">
@@ -45,7 +44,6 @@
                 </div>
             </div>
         </div>
-    </main>
     <script type="module" src="../js/script_profile.js"></script>
 </body>
 

@@ -9,9 +9,11 @@
 </head>
 
 <body>
-    <header>
-        <h2>Historial de Pedidos</h2>
-    </header>
+<header>
+<?php include('navbar.php'); ?>
+</header>
+
+
 
     <div class="orders-container">
         <!-- Barra de búsqueda y filtros -->
