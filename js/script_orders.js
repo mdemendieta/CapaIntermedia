@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterStatus = document.getElementById("filter-status");
 
     const orders = [
-        { id: 1, name: "Alimento para perro", seller: "PetCo", price: "$200", status: "delivered", image: "../recursos/categorias/alimentoscat.jpg" },
-        { id: 2, name: "Correa", seller: "Veterinarias Allende", price: "$80", status: "pending", image: "../recursos/categorias/correas.jpg" },
-        { id: 3, name: "Juguete para gato", seller: "Tienda de Mascotas", price: "$50", status: "shipped", image: "../recursos/categorias/juguetes.jpg" },
-        { id: 4, name: "Cama para perro", seller: "Pet Shop", price: "$120", status: "delivered", image: "../recursos/categorias/jaulas.jpg" }
+        { id: 1, name: "Alimento para perro", seller: "PetCo", price: "$200", status: "Entregado", image: "../recursos/categorias/alimentoscat.jpg" },
+        { id: 2, name: "Correa", seller: "Veterinarias Allende", price: "$80", status: "Pendiente", image: "../recursos/categorias/correas.jpg" },
+        { id: 3, name: "Juguete para gato", seller: "Tienda de Mascotas", price: "$50", status: "Transportado", image: "../recursos/categorias/juguetes.jpg" },
+        { id: 4, name: "Cama para perro", seller: "Pet Shop", price: "$120", status: "Entregado", image: "../recursos/categorias/jaulas.jpg" }
     ];
 
     function renderOrders(filter = "all", searchQuery = "") {
