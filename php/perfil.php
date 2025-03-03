@@ -29,7 +29,7 @@
                     <span class="text-v1">Público</span>
                 </div>
                 <div class="section-right">
-                    <button class="btn-v2">Mensaje</button>
+                    <button onclick="window.location.href='chat.php'" class="btn-v2">Mensaje</button>
                 </div>
             </div>
             <hr>
@@ -45,7 +45,7 @@
             </div>
         </div>
     </main>
-    <script src="../js/script_profile.js"></script>
+    <script type="module" src="../js/script_profile.js"></script>
 </body>
 
 </html>

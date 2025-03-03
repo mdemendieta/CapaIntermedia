@@ -24,6 +24,13 @@ select {
     border: 3px solid #007bff;
     border-radius: 10px;
 }
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: #ccc; /* Color de la línea */
+    margin: 20px 0; /* Espaciado arriba y abajo */
+}
 /*-------- Apartado perfil -----------*/
 .profile-card {
     background: white; 
@@ -61,13 +68,6 @@ select {
     border-right: 2px solid #007bff;
     height: 100px;
     margin: 0 20px;
-}
-
-hr {
-    border: none;
-    height: 2px;
-    background-color: #ccc; /* Color de la línea */
-    margin: 20px 0; /* Espaciado arriba y abajo */
 }
 
 .card-lists {
@@ -118,7 +118,7 @@ hr {
     color: white;
 }
 .btn-v1:hover, .btn-v2:hover{
-    background-color: #181818;
+    background-color: #281668;
     color: white;
     transition: background-color 0.6s ease-in-out;  
 }
