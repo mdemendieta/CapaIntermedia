@@ -1,0 +1,153 @@
+/*-------- General -----------*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2a2a2c;
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+    color: #7a64c9;
+    text-align: center;
+}
+p{
+    color:#585858;
+    font-size: 14px;
+    margin: 5px;
+}
+
+
+/*-------- Apartado historial -----------*/
+.orders-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#search-bar, select, input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    color:#2b1677;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+    display: block;
+}
+
+.filters{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filters label{
+    width: 45%;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color:#2b1677;
+    text-align: end;
+}
+
+
+.row-filter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.orders-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.order-item img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.order-date{
+    text-align: end;
+    color: #585858;
+}
+.order-split{
+    display: flex;
+    justify-content: space-between;
+}
+.order-details {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.details-btn{
+    width: 100px;
+    background-color: #5b3cca;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.details-btn:hover{
+    width: 100px;
+    background-color: #39267e;
+    transition: background-color 0.4s ease-in-out;  ;
+}
+
+.status {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.status.pending {
+    color: orange;
+}
+
+.status.shipped {
+    color: #0088db;
+}
+
+.status.delivered {
+    color: green;
+}
+
+.link-item{
+    text-decoration: none;
+    color: #007bff;
+    font-size:18px;
+    margin-left: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.link-item:hover{
+    text-decoration: underline;
+    color: #08509e;
+}
+
+.link-seller{
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #5b3cca;
+    cursor: pointer;
+}
+.link-seller:hover{
+    text-decoration: underline;
+    color: #2b1677;
+}
+
