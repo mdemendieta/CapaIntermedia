@@ -15,7 +15,7 @@
     
     <div id="main-content" class="flex-1 transition-all duration-300 ml-0 p-6 bg-orange-100">
 
-        <div class=" sticky top-0 mt-10 p-4 bg-white shadow-md rounded-lg mb-6 z-30">
+        <div class="mt-10 p-4 bg-white shadow-md rounded-lg mb-6 z-30">
             <h2 class="text-xl font-bold mb-4">Filtrar Productos</h2>
             
             <div class="grid grid-cols-3 gap-4">

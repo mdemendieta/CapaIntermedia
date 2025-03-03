@@ -1,13 +1,13 @@
 <?php
     $paginas = [
         'Inicio' => 'landing.php',
-        'Mis Listas' => 'listas.php',
+        'Mis Listas' => 'mislistas.php',
         'Carrito' => 'carrito.php',
         'Chat' => 'chat.php',
         'historial de pedidos' => 'chat.php',
-        'crear admin' => 'chat.php',
+        'crear admin' => 'altaadmin.php',
         'productos pendientes por aprobar' => 'chat.php',
-        'Publicar un producto' => 'chat.php',
+        'Publicar un producto' => 'altaproducto.php',
         'Mi perfil' => 'chat.php',
         'Editar' => 'chat.php',
 
