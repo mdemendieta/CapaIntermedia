@@ -9,7 +9,7 @@
         'productos pendientes por aprobar' => 'chat.php',
         'Publicar un producto' => 'altaproducto.php',
         'Mi perfil' => 'chat.php',
-        'Editar' => 'chat.php',
+        'Editar' => 'editarperfil.php',
 
     ];
     $paginaActual = basename($_SERVER['PHP_SELF']);
@@ -48,9 +48,9 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="relative bg-gray-100">
     
-    <nav class=" bg shadow-md custom-nav flex items-center pl-4 transition-all duration-300" id="navbar">
+    <nav class=" ml-64 bg shadow-md custom-nav flex items-center pl-4 transition-all duration-300 z-30" id="navbar">
         <button id="menuToggle" class="text-white bg-orange-500 p-2 rounded ml-5 mr-5">&#9776;</button>
 
         <a href="landing.php" class="mr-auto">
@@ -71,7 +71,7 @@
         </div>
     </nav>
 
-    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white transform -translate-x-full transition-transform duration-300 p-4">
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white transition-transform duration-300 p-4">
         <h2 class="text-lg font-bold">Menú</h2>
         <ul>
             <li class="mt-2"><a href="#" class="hover:text-orange-500">Opción 1</a></li>
@@ -119,10 +119,11 @@
 
     <script>
         document.getElementById("menuToggle").addEventListener("click", function() {
-            let sidebar = document.getElementById("sidebar");
-            let navbar = document.getElementById("navbar");
-            let body = document.getElementById("main-content");
-            if (sidebar.classList.contains("-translate-x-full")) {
+        let sidebar = document.getElementById("sidebar");
+        let navbar = document.getElementById("navbar");
+        let body = document.getElementById("main-content");
+
+        if (sidebar.classList.contains("-translate-x-full")) {
                 sidebar.classList.remove("-translate-x-full");
                 navbar.classList.add("ml-64");
                 body.classList.add("ml-64");
@@ -131,7 +132,7 @@
                 navbar.classList.remove("ml-64");
                 body.classList.remove("ml-64");
             }
-        });
+    });
 
         document.getElementById("profilePic").addEventListener("click", function() {
             document.getElementById("authModal").classList.remove("hidden");
