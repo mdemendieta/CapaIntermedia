@@ -36,6 +36,7 @@
             <div class="section-lists">
                 <label for="id-profile">Lista</label>
                 <select id="list-profile">
+                    <!---Opciones deben llenarse dinamicamente -->
                     <option value="Favoritos">Favoritos</option>
                     <option value="Alimentos">Alimentos</option>
                 </select>

@@ -15,9 +15,19 @@
 
     <div class="orders-container">
         <!-- Barra de búsqueda y filtros -->
-        <div class="filters">
-            <input type="text" id="search-bar" placeholder="Buscar pedido...">
-            <div class="advance-filter">
+        <div class="filters">   
+            <div class="row-filter">
+                <input type="text" id="search-bar" placeholder="Buscar pedido...">
+                <label for="filter-category" style="width:18%;">Categoria:</label>
+                <select id="filter-category" style="width: 40%;">
+                    <!---Opciones deben llenarse dinamicamente -->
+                    <option value="all">Todas</option>
+                    <option value="Alimentos">Alimentos</option>
+                    <option value="Juguetes">Juguetes</option>
+                    <option value="Accesorios">Accesorios</option>
+                </select>
+            </div>
+            <div class="row-filter">
                 <select id="filter-status">
                     <option value="all">Todos</option>
                     <option value="delivered">Entregado</option>
