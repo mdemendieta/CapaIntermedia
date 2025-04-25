@@ -82,7 +82,7 @@
             
                     // Nuevo div para TÍTULO y PRECIO
                     echo '<div class="p-4 text-white">';
-                    echo '<h2 class="text-lg font-bold">TÍTULO</h2>';
+                    echo '<h2 class="text-lg font-bold"><a href="product.php">TÍTULO</a></h2>';
                     echo '<p class="text-md">PRECIO</p>';
                     echo '</div>'; // Fin texto
             

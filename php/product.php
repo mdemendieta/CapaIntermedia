@@ -6,7 +6,12 @@
     <title>Detalle del Producto</title>
     <link rel="stylesheet" href="../css/styles_product.css">
 </head>
+
+<header>
+<?php include('navbar.php'); ?>
+</header>
 <body>
+<div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 ml-64">
     <div class="product-container">
         <!-- Galería de imágenes -->
         <div class="image-gallery">
@@ -50,5 +55,6 @@
     </div>
 
     <script src="../js/script_product.js"></script>
+</div>
 </body>
 </html>

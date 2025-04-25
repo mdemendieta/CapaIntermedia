@@ -27,7 +27,7 @@
                 <div class="section-middle">
                     <h2 class="username">Juan Pérez</h2>
                     <p class="text-v1">Se unió el: 15 de febrero de 2023</p>
-                    <span class="role seller">Vendedor</span>
+                    <span class="role seller">Comprador</span>
                     <span class="text-v1">Público</span>
                 </div>
                 <div class="section-right">

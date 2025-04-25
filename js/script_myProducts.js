@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const products = [
         { id: 1, name: "Alimento para gato 3Kg", price: "$280", status: "Aceptado", image: "../recursos/categorias/alimentoscat.jpg" },
         { id: 2, name: "Correa", price: "$80", status: "Pendiente", image: "../recursos/categorias/correas.jpg" },
-        { id: 3, name: "Gatos", price: "$500", status: "Rechazado", image: "../recursos/gato2.jpeg" },
+        { id: 3, name: "Gatos", price: "$500", status: "Rechazado", image: "../recursos/productos/gato2.jpeg" },
         { id: 4, name: "Jaula para mascotas", price: "$120", status: "Aceptado", image: "../recursos/categorias/jaulas.jpg" },
         { id: 5, name: "Jaula para masacuatas", price: "$120", status: "Rechazado", image: "../recursos/categorias/jaulas.jpg" }
     ];

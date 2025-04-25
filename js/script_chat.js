@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Lista de contactos predefinidos
     const contacts = [
-        { name: "Miguel Nuñez", id: "Vendedor1", img: "../recursos/gato1.jpg" },
-        { name: "Juan Pérez", id: "Vendedor2", img: "../recursos/huron.jpg" }
+        { name: "Miguel Nuñez", id: "Vendedor1", img: "../recursos/productos/gato1.jpg" },
+        { name: "Juan Pérez", id: "Vendedor2", img: "../recursos/productos/huron.jpg" }
     ];
 
     function openChat(contactId) {

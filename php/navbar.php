@@ -6,7 +6,7 @@
         'Chat' => 'chat.php',
         'historial de pedidos' => 'orders.php',
         'crear admin' => 'altaadmin.php',
-        'productos pendientes por aprobar' => 'chat.php',
+        'productos pendientes por aprobar' => 'myproducts.php',
         'Publicar un producto' => 'altaproducto.php',
         'Mi perfil' => 'profile.php',
         'Editar' => 'editarperfil.php',

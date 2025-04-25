@@ -29,7 +29,7 @@
             <!-- Zona de chat -->
             <div class="chat-box">
                 <div class="chat-header">
-                    <img id="chat-img" src="../recursos/gato2.jpeg" alt="Vendedor">
+                    <img id="chat-img" src="../recursos/productos/gato2.jpeg" alt="Vendedor">
                     <span id="chat-name">Selecciona un vendedor</span>
                 </div>
                 <div class="chat-content" id="chat-content">
