@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 </head>
 <header>
-<?php include('navbar.php'); ?>
+<?php include('navbar.php');?>
 </header>
 <body class="bg-gray-100">
 

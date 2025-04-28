@@ -22,12 +22,12 @@
         <div class="profile-card">
             <div class="card-header">
                 <div class="section-left">
-                    <img src="../recursos/huron.jpg" alt="Foto de perfil" class="profile-img">
+                    <img src="../recursos/productos/huron.jpg" alt="Foto de perfil" class="profile-img">
                 </div>
                 <div class="section-middle">
-                    <h2 class="username">Juan Pérez</h2>
+                    <h2 class="username"><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?></h2>
                     <p class="text-v1">Se unió el: 15 de febrero de 2023</p>
-                    <span class="role seller">Comprador</span>
+                    <span class="role seller"><?php echo $_SESSION['rol'] ?? 'Comprador'; ?></span>
                     <span class="text-v1">Público</span>
                 </div>
                 <div class="section-right">

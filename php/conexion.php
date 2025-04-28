@@ -12,10 +12,8 @@ $conn = new mysqli($host, $usuario, $contraseña, $base_de_datos, $puerto);
 // Verificar la conexión
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
-} else {
-    echo "Conexión exitosa a la base de datos '$base_de_datos'.";
 }
 
-// Cerrar la conexión
-$conn->close();
+// IMPORTANTE CERRAR CONEXIÓN AL FINAL DE CADA CONSULTA A LA BASE DE DATOS
+// $conn->close();
 ?>

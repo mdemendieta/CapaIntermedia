@@ -132,3 +132,54 @@ CREATE TABLE Cotizacion (
     FOREIGN KEY (id_vendedor) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
+
+/*
+CREATE TABLE IntentosLogin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    intentos INT DEFAULT 1,
+    ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (email) REFERENCES Usuario(email)
+);
+*/
+-- Consultas --
+select * from usuario;
+-- Cliente
+INSERT INTO Usuario (
+    email, nombre_usuario, contrasena, tipo, avatar, nombre, apellido_P, apellido_M, 
+    fecha_Nacimiento, genero, estado
+) VALUES (
+    'cliente@gmail.com', 'MaxWell', 'cliente!1', 'Cliente',
+    'avatar.png', 'Maximiliano', 'de Mendieta', 'Cavazos',
+    '1995-06-15', 'Masculino', 'Activo'
+);
+
+-- Vendedor
+INSERT INTO Usuario (
+    email, nombre_usuario, contrasena, tipo, avatar, nombre, apellido_P, apellido_M, 
+    fecha_Nacimiento, genero, estado
+) VALUES (
+    'vendedor@gmail.com', 'Veck', 'vendedor!1', 'Vendedor',
+    'avatar.png', 'Victor Hugo', 'Molina', 'Ruiz',
+    '1988-11-02', 'Femenino', 'Activo'
+);
+
+-- Administrador
+INSERT INTO Usuario (
+    email, nombre_usuario, contrasena, tipo, avatar, nombre, apellido_P, apellido_M, 
+    fecha_Nacimiento, genero, estado
+) VALUES (
+    'admin@gmail.com', 'Padroneitor', 'administrador!1', 'Administrador',
+    'avatar.png', 'Juan José', 'Rodríguez', 'Padrón',
+    '1990-03-22', 'Masculino', 'Activo'
+);
+
+-- Superadministrador
+INSERT INTO Usuario (
+    email, nombre_usuario, contrasena, tipo, avatar, nombre, apellido_P, apellido_M, 
+    fecha_Nacimiento, genero, estado
+) VALUES (
+    'superadmin@gmail.com', 'AdrianAdmin', 'superadmin!1', 'Superadministrador',
+    'avatar.png', 'Adriana Guadalupe', 'Garza', 'Álvarez',
+    '1985-09-10', 'Femenino', 'Activo'
+);
