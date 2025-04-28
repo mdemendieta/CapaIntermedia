@@ -35,7 +35,34 @@ BEGIN
     WHERE nombre_usuario = p_nombre_usuario OR email = p_email;
 END //
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_IniciarSesion(
+IN p_usuario VARCHAR(255)
+)
+BEGIN
+    SELECT 
+        id_usuario,
+        nombre,
+        apellido_P,
+        apellido_M,
+        nombre_usuario,
+        email,
+        contrasena, 
+        tipo,
+        avatar,
+        genero,
+        fecha_Nacimiento
+    FROM Usuario
+    WHERE nombre_usuario = p_usuario OR email = p_usuario
+    LIMIT 1;
+END$$
+
+DELIMITER ;
+
 /*
+
 DELIMITER //
 CREATE PROCEDURE sp_IniciarSesion(
     IN p_usuario VARCHAR(255)
@@ -92,6 +119,7 @@ BEGIN
     DELETE FROM IntentosLogin WHERE usuario = p_usuario;
 END //
 DELIMITER ;
-/*
+*/
 -- drop procedure sp_IniciarSesion
+-- CALL sp_IniciarSesion ('admin@gmail.com');
 
