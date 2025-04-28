@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     include 'conexion.php';
 
-    $stmt = $conn->prepare("CALL sp_IniciarSesion(?)");
+    $stmt = $conexion->prepare("CALL sp_IniciarSesion(?)");
     $stmt->bind_param("s", $user);
     
     if ($stmt->execute()) {
@@ -42,6 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $stmt->close();
-    $conn->close();
+    $conexion->close();
 }
 ?>
