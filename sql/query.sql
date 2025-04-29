@@ -108,16 +108,28 @@ CREATE TABLE Venta (
     FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
 
--- drop table MensajesChat;
-CREATE TABLE MensajesChat (
-    id_chat INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Clave de identificacion del Mensaje Vendedor y/o comprador',
-    id_remitente INT COMMENT 'Clave del remitente',
-    id_destinatario INT COMMENT 'Clave del destinatario',
-    Mensaje TEXT COMMENT 'Cuerpo del Mensaje',
-    FechaHora TIMESTAMP COMMENT 'Fecha y Hora del Mensaje',
-    FOREIGN KEY (id_remitente) REFERENCES Usuario(id_usuario),
-    FOREIGN KEY (id_destinatario) REFERENCES Usuario(id_usuario)
+-- drop table Conversacion;
+CREATE TABLE Conversacion (
+    id_conversacion INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador unico de la conversacion',
+    id_usuario1 INT NOT NULL COMMENT 'Primer usuario de la conversacion',
+    id_usuario2 INT NOT NULL COMMENT 'Segundo usuario de la conversacion',
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de creacion de la conversacion',
+    UNIQUE (id_usuario1, id_usuario2),
+    FOREIGN KEY (id_usuario1) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_usuario2) REFERENCES Usuario(id_usuario)
 );
+
+-- drop table MensajesChat;
+CREATE TABLE MensajeChat (
+    id_mensaje INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador unico del mensaje',
+    id_conversacion INT COMMENT 'Conversacion a la que pertenece el mensaje',
+    id_remitente INT COMMENT 'Usuario que envia el mensaje',
+    Mensaje TEXT COMMENT 'Contenido del mensaje',
+    FechaHora TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora de envio del mensaje',
+    FOREIGN KEY (id_conversacion) REFERENCES Conversacion(id_conversacion),
+    FOREIGN KEY (id_remitente) REFERENCES Usuario(id_usuario)
+);
+
 
 -- drop table Cotizacion;
 CREATE TABLE Cotizacion (
@@ -143,7 +155,7 @@ CREATE TABLE IntentosLogin (
 );
 */
 -- Consultas --
-select * from usuario;
+select * from producto;
 -- Cliente
 INSERT INTO Usuario (
     email, nombre_usuario, contrasena, tipo, avatar, nombre, apellido_P, apellido_M, 
@@ -183,3 +195,16 @@ INSERT INTO Usuario (
     'avatar.png', 'Adriana Guadalupe', 'Garza', 'Álvarez',
     '1985-09-10', 'Femenino', 'Activo'
 );
+-- Chats
+
+INSERT INTO Conversacion (id_usuario1, id_usuario2)
+VALUES (1, 2);
+-- Mensaje del Cliente (MaxWell)
+INSERT INTO MensajeChat (id_conversacion, id_remitente, Mensaje)
+VALUES (1, 1, 'Hola, ¿cuál es la cotización?');
+-- Mensaje del Vendedor (Veck)
+INSERT INTO MensajeChat (id_conversacion, id_remitente, Mensaje)
+VALUES (1, 2, '$1500, negociable.');
+-- select * from mensajechat
+
+

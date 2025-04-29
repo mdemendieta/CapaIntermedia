@@ -9,53 +9,94 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentContact = null;
 
     // Lista de contactos predefinidos
-    const contacts = [
+    let contacts = [
         { name: "Miguel Nuñez", id: "Vendedor1", img: "../recursos/productos/gato1.jpg" },
         { name: "Juan Pérez", id: "Vendedor2", img: "../recursos/productos/huron.jpg" }
     ];
 
-    function openChat(contactId) {
-        currentContact = contactId;
-        chatContent.innerHTML = "<p>Cargando mensajes...</p>";
+    fetch('contactos.php')
+    .then(response => response.json())
+    .then(data => {
+        contacts = data;
+        renderContacts(); // Renderizamos cuando ya tenemos los contactos
+    })
+    .catch(error => {
+        console.error('Error cargando contactos:', error);
+    });
 
-        setTimeout(() => {
+    function openChat(contactId) {
+        currentContact = contactId; // ya no "chat_" porque ahora es de base de datos
+        chatContent.innerHTML = "<p>Cargando mensajes...</p>";
+    
+        fetch('cargarmensajes.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ contactId: contactId })
+        })
+        .then(response => response.json())
+        .then(messages => {
             chatContent.innerHTML = "";
-            const messages = JSON.parse(localStorage.getItem(contactId)) || [];
             messages.forEach(msg => {
                 const div = document.createElement("div");
-                div.classList.add(msg.sender);
-                div.textContent = msg.text;
+                div.classList.add(msg.sender === 'yo' ? 'user-msg' : 'contact-msg');
+                div.textContent = msg.texto;
                 chatContent.appendChild(div);
             });
-        }, 200);
+        })
+        .catch(error => {
+            console.error('Error cargando mensajes:', error);
+            chatContent.innerHTML = "<p>Error al cargar los mensajes.</p>";
+        });
     }
+    
+    
 
     function sendMessage() {
         const text = messageInput.value.trim();
         if (!text || !currentContact) return;
-
-        const messages = JSON.parse(localStorage.getItem(currentContact)) || [];
-        messages.push({ sender: "user-msg", text });
-        localStorage.setItem(currentContact, JSON.stringify(messages));
-
-        const div = document.createElement("div");
-        div.classList.add("user-msg");
-        div.textContent = text;
-        chatContent.appendChild(div);
-        messageInput.value = "";
+    
+        fetch('enviarmensaje.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                contactId: currentContact,
+                mensaje: text
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const div = document.createElement("div");
+                div.classList.add("user-msg");
+                div.textContent = text;
+                chatContent.appendChild(div);
+                messageInput.value = "";
+            } else {
+                alert('Error enviando el mensaje.');
+            }
+        })
+        .catch(error => {
+            console.error('Error enviando mensaje:', error);
+        });
     }
+    
 
     contactList.addEventListener("click", (e) => {
         const contactElement = e.target.closest("li");
         if (!contactElement) return;
-
+    
         const contactId = contactElement.dataset.contact;
         if (!contactId) return;
-
+    
         chatName.textContent = contactElement.querySelector("span").textContent;
         chatImg.src = contactElement.querySelector("img")?.src || "../recursos/default.jpg";
         openChat(contactId);
     });
+    
 
     function renderContacts(searchQuery = "") {
         contactList.innerHTML = "";

@@ -46,7 +46,7 @@ if ($_POST) {
     }
     // Verificar si el nombre de usuario o correo ya existen
     include('conexion.php');
-    $stmt = $conn->prepare("CALL sp_ValidarUsuarioCorreo(?, ?)");
+    $stmt = $conexion->prepare("CALL sp_ValidarUsuarioCorreo(?, ?)");
     $stmt->bind_param("ss", $nombre_usuario, $email);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -56,12 +56,12 @@ if ($_POST) {
         exit();
     }
     $stmt->close();
-    $conn->next_result(); // Importante para limpiar el buffer de resultados anteriores.
+    $conexion->next_result(); // Importante para limpiar el buffer de resultados anteriores.
 
     // Cifrar contraseña
     $contrasena_hashed = password_hash($contrasena, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("CALL sp_RegistrarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conexion->prepare("CALL sp_RegistrarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
         "sssssssss",
         $nombre,
@@ -89,6 +89,6 @@ if ($_POST) {
         echo "Error al registrar usuario: " . $stmt->error;
     }
     $stmt->close();
-    $conn->close();// Cerrar la conexión
+    $conexion->close();// Cerrar la conexión
 }
 ?>

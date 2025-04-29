@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['id_usuario'])) {
+    $idUsuarioActual = $_SESSION['id_usuario'];
+    $nombreUsuarioActual = $_SESSION['nombre_usuario'];
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +46,7 @@
                 <div class="chat-input">
                     <button id="quote-btn">+</button>
                     <input type="text" id="message-input" placeholder="Escribe un mensaje...">
-                    <button id="send-btn">Enviar</button>
+                    <button id="send-btn" >Enviar</button>
                 </div>
             </div>
 
