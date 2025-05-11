@@ -19,7 +19,7 @@
                 <h2 class="text-lg font-bold mb-4">Modificar Información Personal</h2>
                 <div class="relative flex items-center justify-center">
                     <img src="../recursos/perfilvacio.jpg" alt="Foto de perfil" class="h-[150px] w-[150px] rounded-full mb-4" id="profilePic">
-                    <img src="../recursos/iconos/editar.png" class="absolute w-16 h-16 bg-red-500 rounded-full bottom-0 right-0 transform translate-x-1/2 -translate-y-1/2 cursor-pointer">
+                    <img src="../recursos/iconos/agregarfoto.png" class="p-2 absolute w-16 h-16 bg-green-500 rounded-full bottom-0 right-0 transform translate-x-1/2 -translate-y-1/2 cursor-pointer">
                 </div>
                 
                 <input type="text" placeholder="Nombre" class="w-full p-2 mb-2 border rounded">
