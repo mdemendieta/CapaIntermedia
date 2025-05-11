@@ -51,10 +51,12 @@
 
         <div class="grid grid-cols-4 gap-5">
             <?php
-            include('conexion.php'); // Asegúrate de tener la conexión a la base de datos
+            include 'conexion.php'; // Asegúrate de tener la conexión a la base de datos
 
-            $id_usuario = $_SESSION['id_usuario']; // Obtener ID del usuario
-
+            if (isset($_SESSION)) {
+                $id_usuario = $_SESSION['id_usuario']; // Obtener ID del usuario
+            }
+            
             // Consultar los productos disponibles
             $consultaProductos = "SELECT * FROM Producto WHERE Estado = 'Aprobado'";
             $resultadoProductos = mysqli_query($conexion, $consultaProductos);

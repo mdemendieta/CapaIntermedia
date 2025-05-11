@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include('conexion.php'); // Importante que esté antes
+include 'conexion.php'; // Importante que esté antes
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Proceso para crear la lista (cuando se envía el formulario vía fetch)
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_query($conexion, $query)) {
             // Obtener el último ID insertado (la nueva lista)
             $id_lista = mysqli_insert_id($conexion);
-            
+
             // Obtener los datos de la lista recién creada
             $consultaLista = "SELECT * FROM ListaUsuario WHERE id_lista = $id_lista";
             $resultadoLista = mysqli_query($conexion, $consultaLista);
@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,10 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100">
 
         <!-- Barra de búsqueda -->
-        <input type="text" id="search" name="search" placeholder="Buscar una lista por su nombre..." class="w-full mb-10 p-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500">
-        
+        <input type="text" id="search" name="search" placeholder="Buscar una lista por su nombre..."
+            class="w-full mb-10 p-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500">
+
         <!-- Botón para abrir modal -->
-        <button onclick="document.getElementById('crearListaModal').classList.remove('hidden')" 
+        <button onclick="document.getElementById('crearListaModal').classList.remove('hidden')"
             class="bg-orange-500 text-white px-4 py-2 rounded-full mb-6 hover:bg-orange-600 transition">
             Crear Nueva Lista
         </button>
@@ -70,16 +72,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="bg-white p-8 rounded-lg w-full max-w-md">
                 <h2 class="text-2xl font-bold mb-4">Crear Nueva Lista</h2>
                 <form id="crearListaForm">
-                    <input type="text" name="nombreLista" placeholder="Nombre de la lista" class="w-full p-2 mb-4 border border-gray-300 rounded" required>
-                    <textarea name="descripcion" placeholder="Descripción de la lista" class="w-full p-2 mb-4 border border-gray-300 rounded"></textarea>
+                    <input type="text" name="nombreLista" placeholder="Nombre de la lista"
+                        class="w-full p-2 mb-4 border border-gray-300 rounded" required>
+                    <textarea name="descripcion" placeholder="Descripción de la lista"
+                        class="w-full p-2 mb-4 border border-gray-300 rounded"></textarea>
                     <label class="inline-flex items-center mb-4">
                         <input type="checkbox" name="publica" class="form-checkbox">
                         <span class="ml-2">¿Lista pública?</span>
                     </label>
                     <div class="flex justify-end gap-2">
-                        <button type="button" onclick="document.getElementById('crearListaModal').classList.add('hidden')" 
+                        <button type="button"
+                            onclick="document.getElementById('crearListaModal').classList.add('hidden')"
                             class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancelar</button>
-                        <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">Crear</button>
+                        <button type="submit"
+                            class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">Crear</button>
                     </div>
                 </form>
             </div>
@@ -92,31 +98,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_start();
             }
 
-            include('conexion.php'); // asegúrate de incluir tu archivo de conexión a la BD
+            include 'conexion.php'; // asegúrate de incluir tu archivo de conexión a la BD
+            
+            if (isset($_SESSION['id_usuario'])) {
+                $id_usuario = $_SESSION['id_usuario']; // ID del usuario en sesión
+                $consultaListas = "SELECT * FROM ListaUsuario WHERE id_usuario = $id_usuario";
+                $resultadoListas = mysqli_query($conexion, $consultaListas);
 
-            $id_usuario = $_SESSION['id_usuario']; // ID del usuario en sesión
-
-            $consultaListas = "SELECT * FROM ListaUsuario WHERE id_usuario = $id_usuario";
-            $resultadoListas = mysqli_query($conexion, $consultaListas);
-
-            if (mysqli_num_rows($resultadoListas) > 0) {
-                while ($lista = mysqli_fetch_assoc($resultadoListas)) {
-                    echo '<div class="h-[200px] bg-white rounded-[10px] p-4 shadow-md">';
-                    echo '<h2 class="text-xl font-bold mb-2 text-orange-600">'.htmlspecialchars($lista['NombreLista']).'</h2>';
-                    echo '<p class="text-gray-600">'.htmlspecialchars($lista['Descripcion']).'</p>';
-                    echo '<p class="text-sm mt-2 text-gray-500">'.($lista['Publica'] ? 'Pública' : 'Privada').'</p>';
-                    echo '</div>';
+                if (mysqli_num_rows($resultadoListas) > 0) {
+                    while ($lista = mysqli_fetch_assoc($resultadoListas)) {
+                        echo '<div class="h-[200px] bg-white rounded-[10px] p-4 shadow-md">';
+                        echo '<h2 class="text-xl font-bold mb-2 text-orange-600">' . htmlspecialchars($lista['NombreLista']) . '</h2>';
+                        echo '<p class="text-gray-600">' . htmlspecialchars($lista['Descripcion']) . '</p>';
+                        echo '<p class="text-sm mt-2 text-gray-500">' . ($lista['Publica'] ? 'Pública' : 'Privada') . '</p>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p class="text-gray-600">No tienes listas creadas aún.</p>';
                 }
-            } else {
-                echo '<p class="text-gray-600">No tienes listas creadas aún.</p>';
             }
+
+
             ?>
         </div>
     </div>
 
     <!-- JavaScript para manejar el submit -->
     <script>
-        document.getElementById("crearListaForm").addEventListener("submit", function(event) {
+        document.getElementById("crearListaForm").addEventListener("submit", function (event) {
             event.preventDefault(); // evitar que se envíe normal
 
             const formData = new FormData(this);
@@ -124,28 +133,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json()) // Respuesta como JSON
-            .then(data => {
-                if (data) {
-                    // Crear un nuevo elemento en el DOM
-                    const nuevaLista = document.createElement("div");
-                    nuevaLista.classList.add("h-[200px]", "bg-white", "rounded-[10px]", "p-4", "shadow-md");
-                    nuevaLista.innerHTML = `
+                .then(response => response.json()) // Respuesta como JSON
+                .then(data => {
+                    if (data) {
+                        // Crear un nuevo elemento en el DOM
+                        const nuevaLista = document.createElement("div");
+                        nuevaLista.classList.add("h-[200px]", "bg-white", "rounded-[10px]", "p-4", "shadow-md");
+                        nuevaLista.innerHTML = `
                         <h2 class="text-xl font-bold mb-2 text-orange-600">${data.NombreLista}</h2>
                         <p class="text-gray-600">${data.Descripcion}</p>
                         <p class="text-sm mt-2 text-gray-500">${data.Publica ? 'Pública' : 'Privada'}</p>
                     `;
-                    document.getElementById("listasContainer").prepend(nuevaLista); // Insertar al inicio
-                    alert("Lista creada exitosamente");
-                    document.getElementById('crearListaModal').classList.add('hidden'); // Cerrar modal
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Hubo un error al crear la lista.");
-            });
+                        document.getElementById("listasContainer").prepend(nuevaLista); // Insertar al inicio
+                        alert("Lista creada exitosamente");
+                        document.getElementById('crearListaModal').classList.add('hidden'); // Cerrar modal
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Hubo un error al crear la lista.");
+                });
         });
     </script>
 
 </body>
+
 </html>
