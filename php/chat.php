@@ -17,7 +17,7 @@ if (isset($_SESSION['id_usuario'])) {
 </head>
 
 <header>
-    <?php include('navbar.php'); ?>
+    <?php include 'navbar.php'; ?>
 </header>
 
 <body>
@@ -27,7 +27,7 @@ if (isset($_SESSION['id_usuario'])) {
         <div class="chat-container">
             <!-- Sidebar -->
             <div class="sidebar">
-                <input type="text" placeholder="Buscar..."  id="search-bar" class="search-bar">
+                <input type="text" placeholder="Buscar..." id="search-bar" class="search-bar">
                 <hr>
                 <ul id="contact-list" class="contact-list">
                     <!--Aquí se llenan los contactos-->
@@ -40,18 +40,49 @@ if (isset($_SESSION['id_usuario'])) {
                     <img id="chat-img" src="../recursos/productos/gato2.jpeg" alt="Vendedor">
                     <span id="chat-name">Selecciona un vendedor</span>
                 </div>
+                
                 <div class="chat-content" id="chat-content">
                     <p>Selecciona un contacto para empezar a chatear.</p>
+                    <div id="quote-modal"></div>
+                    <div id="quote-container">
+                        <span class="close" id="close-modal">&times;</span>
+                        <h2>Crear Cotización</h2>
+                        <form id="quote-form">
+                            <div class="form-group">
+                                <div class="section-1">
+                                    <label for="product-name">Producto:</label>
+                                    <select id="product-name" name="product-name" required>
+                                        <option value="">-- Selecciona uno --</option>
+                                        <option value="Product-1">Producto 1</option>
+                                        <option value="Product-2">Producto 2</option>
+                                    </select><br>
+                                    <label for="product-description">Descripción:</label>
+                                    <textarea id="product-description" name="product-description" required></textarea>
+                                    <label for="product-quantity">Cantidad:</label>
+                                    <input type="number" id="product-quantity" name="product-quantity" min="0"
+                                        required><br>
+                                    <label for="product-price">Precio Total:</label>
+                                    <input type="number" id="product-price" name="product-price" min="0" required><br>
+                                    <button type="submit" style="margin-left:0px">Enviar Cotización</button>
+                                </div>
+                                <div class="section-2">
+                                    <label for="product-image">Imagen del Producto:</label>
+                                    <img id="product-image" src="../recursos/productos/gato1.jpg"><br>
+                                </div>
+                            </div>        
+                        </form>
+                    </div>
                 </div>
+                
                 <div class="chat-input">
                     <button id="quote-btn">+</button>
                     <input type="text" id="message-input" placeholder="Escribe un mensaje...">
-                    <button id="send-btn" >Enviar</button>
-                </div>
+                    <button id="send-btn">Enviar</button>
+                </div>  
+             
             </div>
-
         </div>
-    
+
 
 
     </div>

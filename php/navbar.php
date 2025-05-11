@@ -1,5 +1,5 @@
 <?php
-session_start(); // Iniciar la sesión para acceder a las variables de sesión
+//session_start(); // Iniciar la sesión para acceder a las variables de sesión
 $paginas = [
     'Inicio' => 'landing.php',
     'Mis Listas' => 'mislistas.php',
