@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 if (isset($_SESSION['id_usuario'])) {
     $idUsuarioActual = $_SESSION['id_usuario'];
     $nombreUsuarioActual = $_SESSION['nombre_usuario'];

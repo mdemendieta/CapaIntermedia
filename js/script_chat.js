@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => {
             console.error('Error cargando mensajes:', error);
-            chatContent.innerHTML = "<p>Error al cargar los mensajes.</p>";
+            //chatContent.innerHTML = "<p>Error al cargar los mensajes.</p>";
         });
     }
     
