@@ -6,6 +6,7 @@ $contraseña = ''; // Contraseña
 $base_de_datos = 'bd_capaInter'; // Nombre de la base de datos
 $puerto = 33065;// Puerto de conexión (opcional, por defecto es 3306 para MySQL)
 
+
 // Crear la conexión
 $conexion = new mysqli($host, $usuario, $contraseña, $base_de_datos,$puerto);
 
