@@ -17,7 +17,7 @@
 </header>
 
 <body>
-    <div id="main-content" class="flex justify-center transition-all duration-300 p-6 min-h-screen bg-orange-100 ml-64 ">
+    <div id="main-content" class="flex justify-center transition-all duration-300 p-6 min-h-screen bg-orange-100">
 
         <div class="profile-card">
             <div class="card-header">

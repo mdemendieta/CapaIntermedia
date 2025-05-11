@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php include('navbar.php'); ?>
     </header>
 
-    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 ml-64">
+    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100">
 
         <!-- Barra de búsqueda -->
         <input type="text" id="search" name="search" placeholder="Buscar una lista por su nombre..." class="w-full mb-10 p-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500">

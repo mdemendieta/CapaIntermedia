@@ -22,7 +22,7 @@ if (isset($_SESSION['id_usuario'])) {
 
 <body>
 
-    <div id="main-content" class="flex justify-center transition-all duration-300 p-6 bg-orange-100 ml-64">
+    <div id="main-content" class="flex justify-center transition-all duration-300 p-6 bg-orange-100">
 
         <div class="chat-container">
             <!-- Sidebar -->

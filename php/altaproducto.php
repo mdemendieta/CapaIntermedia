@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php include('navbar.php'); ?>
 
-<div id="main-content" class="flex transition-all duration-300 p-6 bg-orange-100 min-h-screen justify-center ml-64">
+<div id="main-content" class="flex transition-all duration-300 p-6 bg-orange-100 min-h-screen justify-center">
     <form action="" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4 items-center justify-center w-[70%]">
 
         <h2 class="col-span-2 text-lg text-center font-bold mb-4">Crear Nueva Publicación</h2>

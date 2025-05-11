@@ -14,7 +14,7 @@
         <?php include('navbar.php'); ?>
     </header>
 
-    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 ml-64">
+    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100">
 
         <div class="mt-10 p-4 bg-white shadow-md rounded-lg mb-6 z-30">
             <h2 class="text-xl font-bold mb-4">Filtrar Productos</h2>
