@@ -14,6 +14,26 @@ if ($_POST) {
     $tipo = $_POST['rol']; // Campo "Rol"
 
     // --- VALIDACIONES PERSONALIZADAS ---
+    // Validar que el nombre no contenga números
+    if (preg_match('/[0-9]/', $nombre)) {
+        echo "Error: El nombre no debe contener números.";
+        exit();
+    }
+    //Validar que el nombre no contenga caracteres especiales
+    if (preg_match('/[^a-zA-Z\s]/', $nombre)) {
+        echo "Error: El nombre no debe contener caracteres especiales.";
+        exit();
+    }
+    // Validar que el apellido no contenga números
+    if (preg_match('/[0-9]/', $apellido_P) || preg_match('/[0-9]/', $apellido_M)) {
+        echo "Error: El apellido no debe contener números.";
+        exit();
+    }
+    // Validar que el apellido no contenga caracteres especiales
+    if (preg_match('/[^a-zA-Z\s]/', $apellido_P) || preg_match('/[^a-zA-Z\s]/', $apellido_M)) {
+        echo "Error: El apellido no debe contener caracteres especiales.";
+        exit();
+    }
 
     // Validar longitud del nombre de usuario
     if (strlen($nombre_usuario) < 3) {
@@ -69,22 +89,28 @@ if ($_POST) {
         $apellido_M,
         $nombre_usuario,
         $email,
-        $contrasena,
+        $contrasena_hashed,
         $genero,
         $fecha_Nacimiento,
         $tipo
     );
 
     if ($stmt->execute()) {
-        // Registro exitoso: crear sesión
-        session_start();
-        $_SESSION['nombre_usuario'] = $nombre_usuario;
-        $_SESSION['email'] = $email;
-        $_SESSION['rol'] = $tipo;
+            session_start();
+            // Guardar datos en la sesión
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['apellido_P'] = $apellido_P;
+            $_SESSION['apellido_M'] = $apellido_M;
+            $_SESSION['email'] = $email;
+            $_SESSION['nombre_usuario'] = $nombre_usuario;
+            $_SESSION['tipo'] = $tipo;
+            $_SESSION['genero'] = $genero;
+            $_SESSION['fecha_Nacimiento'] = $fecha_Nacimiento;
 
-        // Redireccionar a landing.php
-        header("Location: landing.php");
-        exit();
+            // Redireccionar a landing.php
+            header("Location: landing.php");
+            exit();
+        
     } else {
         echo "Error al registrar usuario: " . $stmt->error;
     }

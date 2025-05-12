@@ -1,14 +1,16 @@
 <?php
-session_start();
+if(!isset($_SESSION['email'])) {
+    session_start(); // Asegúrate de tener la sesión iniciada
+}
 include('conexion.php'); // Tu conexión a la base de datos
 
-$idUsuarioActual = $_SESSION['id_usuario'];
+$idUsuarioActual = $_SESSION['email'];
 
 // Buscamos usuarios activos distintos al que está logueado
-$stmt = $conexion->prepare("SELECT id_usuario, nombre_usuario, nombre, apellido_P, avatar 
+$stmt = $conexion->prepare("SELECT id_usuario, email, nombre_usuario, nombre, apellido_P, avatar 
                         FROM Usuario 
-                        WHERE estado = 'Activo' AND id_usuario != ?");
-$stmt->bind_param("i", $idUsuarioActual);
+                        WHERE estado = 'Activo' AND email != ?");
+$stmt->bind_param("s", $idUsuarioActual);
 $stmt->execute();
 $result = $stmt->get_result();
 

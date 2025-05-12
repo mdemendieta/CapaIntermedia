@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const contactList = document.getElementById("contact-list");
     const chatName = document.getElementById("chat-name");
     const chatImg = document.getElementById("chat-img");
-    const chatContent = document.getElementById("chat-content");
+    const chatContent = document.getElementById("message-container");
     const messageInput = document.getElementById("message-input");
     const sendBtn = document.getElementById("send-btn");
     const quoteBtn = document.getElementById("quote-btn");
@@ -32,6 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
         currentContact = contactId; // ya no "chat_" porque ahora es de base de datos
         chatContent.innerHTML = "<p>Cargando mensajes...</p>";
 
+        //habilitar el botones de chat
+        sendBtn.disabled = false;
+        if (quoteBtn) quoteBtn.disabled = false;
+        messageInput.disabled = false;
+
         fetch('cargarmensajes.php', {
             method: 'POST',
             headers: {
@@ -54,8 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    quoteBtn.addEventListener("click", quoteModal)
-
+    if (quoteBtn) {
+        quoteBtn.addEventListener("click", quoteModal);
+    }
     function quoteModal() {
         // definir modal como display: block
         modal.style.display = "block";
@@ -63,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     addEventListener("click", (e) => {
-        if (e.target === modal ||e.target === closeModal) {
+        if (e.target === modal || e.target === closeModal) {
             modal.style.display = "none";
             modalContent.style.display = "none";
         }
@@ -111,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         chatName.textContent = contactElement.querySelector("span").textContent;
         chatImg.src = contactElement.querySelector("img")?.src || "../recursos/default.jpg";
         openChat(contactId);
+
     });
 
 

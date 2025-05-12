@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pass = $_POST['contrasena'];
 
     include 'conexion.php';
-
+    
     $stmt = $conexion->prepare("CALL sp_IniciarSesion(?)");
     $stmt->bind_param("s", $user);
     
@@ -16,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result->num_rows > 0) {
             $user_data = $result->fetch_assoc();
-            if ($pass === $user_data['contrasena']) {
+            $hashed_password = $user_data['contrasena'];
+            if (password_verify($pass, $hashed_password)) {
                 // Guardar datos en la sesión
                 $_SESSION['id_usuario'] = $user_data['id_usuario'];
                 $_SESSION['nombre'] = $user_data['nombre'];

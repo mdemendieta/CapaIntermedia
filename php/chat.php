@@ -1,7 +1,7 @@
 <?php
 //session_start();
-if (isset($_SESSION['id_usuario'])) {
-    $idUsuarioActual = $_SESSION['id_usuario'];
+if (isset($_SESSION['nombre_usuario'])) {
+    $idUsuarioActual = $_SESSION['email'];
     $nombreUsuarioActual = $_SESSION['nombre_usuario'];
 }
 
@@ -38,16 +38,16 @@ if (isset($_SESSION['id_usuario'])) {
             <div class="chat-box">
                 <div class="chat-header">
                     <img id="chat-img" src="../recursos/productos/gato2.jpeg" alt="Vendedor">
-                    <span id="chat-name">Selecciona un vendedor</span>
+                    <span id="chat-name">Selecciona un contacto</span>
                 </div>
-                
+
                 <div class="chat-content" id="chat-content">
-                    <p>Selecciona un contacto para empezar a chatear.</p>
+
                     <div id="quote-modal"></div>
                     <div id="quote-container">
                         <span class="close" id="close-modal">&times;</span>
                         <h2>Crear Cotización</h2>
-                        <form id="quote-form">
+                        <form id="quote-form" method="post">
                             <div class="form-group">
                                 <div class="section-1">
                                     <label for="product-name">Producto:</label>
@@ -69,17 +69,23 @@ if (isset($_SESSION['id_usuario'])) {
                                     <label for="product-image">Imagen del Producto:</label>
                                     <img id="product-image" src="../recursos/productos/gato1.jpg"><br>
                                 </div>
-                            </div>        
+                            </div>
                         </form>
                     </div>
+                    <div id="message-container" class="message-container">
+                        <p>Selecciona un contacto para empezar a chatear.</p>
+                    </div>
                 </div>
-                
+
                 <div class="chat-input">
-                    <button id="quote-btn">+</button>
-                    <input type="text" id="message-input" placeholder="Escribe un mensaje...">
-                    <button id="send-btn">Enviar</button>
-                </div>  
-             
+                    <?php if (!isset($_SESSION['nombre_usuario'])) return;?>
+                    <?php if(($_SESSION['tipo'])==='Vendedor'): ?>
+                        <button id="quote-btn" disabled>+</button>
+                    <?php endif; ?>
+                        <input type="text" id="message-input" placeholder="Escribe un mensaje..." disabled>
+                        <button id="send-btn" disabled>Enviar</button>
+                </div>
+
             </div>
         </div>
 
