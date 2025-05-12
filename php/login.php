@@ -17,6 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result->num_rows > 0) {
             $user_data = $result->fetch_assoc();
             $hashed_password = $user_data['contrasena'];
+            
+            echo "Contraseña ingresada: '$pass'<br>";
+            echo "Hash de la base de datos: '$hashed_password'<br>";
+            echo "Verificación: " . (password_verify($pass, $hashed_password) ? "ok" : "falló") . "<br>";
             if (password_verify($pass, $hashed_password)) {
                 // Guardar datos en la sesión
                 $_SESSION['id_usuario'] = $user_data['id_usuario'];

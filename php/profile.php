@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +54,7 @@ session_start();
                 <button class="<?= claseBoton('listas', $activo) ?>" onclick="cargarContenido('listas')">Listas</button>
                 <button class="<?= claseBoton('historial', $activo) ?>" onclick="cargarContenido('historial')">Historial de pedidos</button>
                 <button class="<?= claseBoton('productospubli', $activo) ?>" onclick="cargarContenido('productospubli')">Productos Publicados</button>
-                <button class="<?= claseBoton('productospend', $activo) ?>" onclick="cargarContenido('productospend')">Productos Pendientes de Aprobación</button>
+                <button class="<?= claseBoton('productospend', $activo) ?>" onclick="cargarContenido('productospend')">Solicitudes de Publicaciones</button>
                 <button class="<?= claseBoton('reportes', $activo) ?>" onclick="cargarContenido('reportes')">Ventas</button>
             </div>
 

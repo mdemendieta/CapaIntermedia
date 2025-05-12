@@ -1,7 +1,9 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start(); // Asegúrate de tener la sesión iniciada
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+
 $paginas = [
     'Inicio' => 'landing.php',
     
@@ -96,17 +98,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             </li>
         </ul>
     </div>
-    <ul class="space-y-4">
-        <li><a href="profile.php" class="block hover:text-orange-500">Mi Perfil</a></li>
-        
-        <li>
-            <?php if (isset($_SESSION['nombre'])): ?>
-                <a id="logoutLink" href="logout.php" class="block hover:text-orange-500">Cerrar Sesión</a>
-            <?php else: ?>
-                <a id="acceder" href="#" class="block hover:text-orange-500">Acceder</a>
-            <?php endif; ?>
-        </li>
-    </ul>
+    
 </div>
 
     <!-- Modal Login/Register (puedes separar esto si gustas) -->
@@ -150,8 +142,8 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
                     value="2003-01-01" max="2007-01-01" min="1925-01-01" required>
                 <div class="mb-2">
                     <label>Rol:</label>
-                    <input name="rol" type="radio" value="comprador" required> Comprador
-                    <input name="rol" type="radio" value="vendedor" required> Vendedor
+                    <input name="rol" type="radio" value="Cliente" required> Comprador
+                    <input name="rol" type="radio" value="Vendedor" required> Vendedor
                 </div>
                 <button class="w-full bg-green-500 text-white py-2 rounded">Registrarse</button>
                 <p class="mt-2 text-sm">¿Ya tienes cuenta? <a href="#" id="showLogin" class="text-blue-500">Inicia
