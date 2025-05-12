@@ -1,6 +1,7 @@
 <?php
-session_start(); // Asegúrate de tener la sesión iniciada
-
+if(!isset($_SESSION)){
+    session_start(); // Asegúrate de tener la sesión iniciada
+}
 include('conexion.php'); // Tu conexión a MySQL
 
 // Verifica si el usuario está en sesión

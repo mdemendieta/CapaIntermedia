@@ -53,7 +53,7 @@
             <?php
             include 'conexion.php'; // Asegúrate de tener la conexión a la base de datos
 
-            if (isset($_SESSION)) {
+            if (isset($_SESSION['id_usuario'])) {
                 $id_usuario = $_SESSION['id_usuario']; // Obtener ID del usuario
             }
             

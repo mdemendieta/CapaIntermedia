@@ -6,10 +6,7 @@ body {
     padding: 0;
 }
 
-h2{
-    color: #7a64c9;
-    text-align: center;
-}
+
 p{
     color:#585858;
     font-size: 14px;
@@ -64,7 +61,10 @@ p{
     max-height: 520px;
     overflow-y: auto;
 }
-
+.myProduct-list h2{
+    color: #7a64c9;
+    text-align: center;
+}
 .product-item {
     display: flex;
     justify-content: space-between;
