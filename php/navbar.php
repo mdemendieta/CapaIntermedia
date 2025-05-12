@@ -1,10 +1,10 @@
 <?php
-//session_start(); // Iniciar la sesión para acceder a las variables de sesión
+session_start(); 
 $paginas = [
     'Inicio' => 'landing.php',
-    'Historial de Pedidos' => 'orders.php',
+    
     'Crear Admin' => 'altaadmin.php',
-    'Productos Pendientes' => 'myproducts.php',
+    
     'Publicar Producto' => 'altaproducto.php',
     'Chat' => 'chat.php',
     'Carrito' => 'carrito.php',
@@ -73,7 +73,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     </div>
     <ul class="space-y-4">
         <li><a href="profile.php" class="block hover:text-orange-500">Mi Perfil</a></li>
-        <li><a href="mislistas.php" class="block hover:text-orange-500">Mis Listas</a></li>
+        
         <li>
             <?php if (isset($_SESSION['nombre'])): ?>
                 <a id="logoutLink" href="logout.php" class="block hover:text-orange-500">Cerrar Sesión</a>

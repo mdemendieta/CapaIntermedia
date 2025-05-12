@@ -51,9 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body class="bg-gray-100">
 
-    <header>
-        <?php include('navbar.php'); ?>
-    </header>
+    
 
     <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100">
 

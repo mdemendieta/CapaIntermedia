@@ -7,9 +7,7 @@
     <title>Historial de Pedidos</title>
     <link rel="stylesheet" href="../css/styles_orders.css">
 </head>
-<header>
-<?php include('navbar.php'); ?>
-</header>
+
 
 <body class="flex flex-col">
 
