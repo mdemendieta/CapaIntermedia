@@ -6,7 +6,8 @@
     <title>AltaAdmin</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-orange-100 flex items-center justify-center min-h-screen">
+<body class="bg-orange-100 flex flex-col items-center justify-center min-h-screen">
+    <button class="bg-orange-200 justify-center my-5 rounded-[30px] p-3"><a id="logoutLink" href="../modelos/logout.php" class="block hover:text-orange-500">Cerrar Sesión</a></button>
     <div class="bg-blue-950 rounded-[30px] flex items-center justify-center flex-col h-[300px] w-[600px]">
         <h2 class="text-lg text-orange-500 font-bold mb-4">Nuevo Usuario Administrador</h2>
         <input type="text" placeholder="Correo Electrónico" class="w-[75%] p-2 mb-2 border rounded-full">

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Juan Pérez", id: "Vendedor2", img: "../recursos/productos/huron.jpg" }
     ];
 
-    fetch('contactos.php')
+    fetch('../modelos/contactos.php')
         .then(response => response.json())
         .then(data => {
             contacts = data;
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (quoteBtn) quoteBtn.disabled = false;
         messageInput.disabled = false;
 
-        fetch('cargarmensajes.php', {
+        fetch('../modelos/cargarmensajes.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const text = messageInput.value.trim();
         if (!text || !currentContact) return;
 
-        fetch('enviarmensaje.php', {
+        fetch('../modelos/enviarmensaje.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

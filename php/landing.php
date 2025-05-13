@@ -16,10 +16,10 @@ session_start();
 
     <header>
         <?php include('navbar.php');    
-        if (isset($_SESSION['id_usuario'])) {
-            echo "Sesión iniciada. ID de usuario: " . $_SESSION['id_usuario'];
+        if (isset($_SESSION['email'])) {
+            echo "<p>Sesión iniciada. ID de usuario: " . $_SESSION['email']."</p>";
         } else {
-            echo "No se ha iniciado sesión.";
+            echo "<p>No se ha iniciado sesión.</p>";
         }
         
         ?>
@@ -62,9 +62,11 @@ session_start();
 
         <div class="grid grid-cols-4 gap-5">
             <?php
-            include 'conexion.php'; // Asegúrate de tener la conexión a la base de datos
+            include '../modelos/conexion.php'; // Asegúrate de tener la conexión a la base de datos
+            $db = new Database();
+            $conexion = $db->getConexion();
+            $id_usuario = isset($_SESSION['email']) ? $_SESSION['email'] : null;
             
-            $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : null;
             
             // Consultar los productos disponibles
             $consultaProductos = "SELECT * FROM Producto WHERE Estado = 'Aprobado'";

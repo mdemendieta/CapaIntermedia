@@ -1,20 +1,21 @@
 <?php
-//Registro
-if ($_POST) {
-    // Recibir datos del formulario
-    $nombre = $_POST['nombre']; // Campo "Nombre(s)"
-    $apellido_P = $_POST['apellido_P']; // Campo "Apellido Paterno"
-    $apellido_M = $_POST['apellido_M']; // Campo "Apellido Materno"
-    $nombre_usuario = $_POST['nombre_usuario']; // Campo "Nombre de usuario"
-    $email = $_POST['email']; // Campo "Correo"
+require_once '../modelos/conexion.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recibir datos
+    $nombre = $_POST['nombre'];
+    $apellido_P = $_POST['apellido_P'];
+    $apellido_M = $_POST['apellido_M'];
+    $nombre_usuario = $_POST['nombre_usuario'];
+    $email = $_POST['email'];
     $contrasena = $_POST['contrasena'];
     $confirmar_contrasena = $_POST['confirmar_contrasena'];
-    $genero = $_POST['genero']; // Campo "Genero"
-    $fecha_Nacimiento = $_POST['fecha_Nacimiento']; // Campo "Fecha de nacimiento"
-    $tipo = $_POST['rol']; // Campo "Rol"
+    $genero = $_POST['genero'];
+    $fecha_Nacimiento = $_POST['fecha_Nacimiento'];
+    $tipo = $_POST['rol'];
 
     // --- VALIDACIONES PERSONALIZADAS ---
-    // Validar que el nombre no contenga números
+// Validar que el nombre no contenga números
     if (preg_match('/[0-9]/', $nombre)) {
         echo "Error: El nombre no debe contener números.";
         exit();
@@ -64,57 +65,42 @@ if ($_POST) {
     if (!preg_match('/[A-Z]/', $_POST['contrasena'])) {
         die('La contraseña debe incluir al menos una letra mayúscula.');
     }
-    // Verificar si el nombre de usuario o correo ya existen
-    include('conexion.php');
-    $stmt = $conexion->prepare("CALL sp_ValidarUsuarioCorreo(?, ?)");
-    $stmt->bind_param("ss", $nombre_usuario, $email);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
 
-    if ($resultado->num_rows > 0) {
-        echo "Error: El nombre de usuario o correo electrónico ya están en uso.";
-        exit();
-    }
-    $stmt->close();
-    $conexion->next_result(); // Importante para limpiar el buffer de resultados anteriores.
+    require_once '../modelos/RegisterModel.php';
 
-    // Cifrar contraseña
-    $contrasena_hashed = password_hash($contrasena, PASSWORD_DEFAULT);
+    // Conexión y modelo
+    $db = new Database();
+    $conexion = $db->getConexion();
+    $registro = new RegisterModel($conexion);
 
-    $stmt = $conexion->prepare("CALL sp_RegistrarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param(
-        "sssssssss",
+    $resultado = $registro->registrarUsuario(
         $nombre,
         $apellido_P,
         $apellido_M,
         $nombre_usuario,
         $email,
-        $contrasena_hashed,
+        $contrasena,
         $genero,
         $fecha_Nacimiento,
         $tipo
     );
 
-    if ($stmt->execute()) {
-            session_start();
-            // Guardar datos en la sesión
-            $_SESSION['nombre'] = $nombre;
-            $_SESSION['apellido_P'] = $apellido_P;
-            $_SESSION['apellido_M'] = $apellido_M;
-            $_SESSION['email'] = $email;
-            $_SESSION['nombre_usuario'] = $nombre_usuario;
-            $_SESSION['tipo'] = $tipo;
-            $_SESSION['genero'] = $genero;
-            $_SESSION['fecha_Nacimiento'] = $fecha_Nacimiento;
+    if ($resultado['success']) {
+        // Guardar en sesión
+        session_start();
+        $_SESSION['id_usuario'] = $resultado['id_usuario'];
+        $_SESSION['nombre'] = $nombre;
+        $_SESSION['apellido_P'] = $apellido_P;
+        $_SESSION['apellido_M'] = $apellido_M;
+        $_SESSION['email'] = $email;
+        $_SESSION['nombre_usuario'] = $nombre_usuario;
+        $_SESSION['tipo'] = $tipo;
+        $_SESSION['genero'] = $genero;
+        $_SESSION['fecha_Nacimiento'] = $fecha_Nacimiento;
 
-            // Redireccionar a landing.php
-            header("Location: landing.php");
-            exit();
-        
+        header("Location: ../php/landing.php");
+        exit;
     } else {
-        echo "Error al registrar usuario: " . $stmt->error;
+        echo $resultado['mensaje'];
     }
-    $stmt->close();
-    $conexion->close();// Cerrar la conexión
 }
-?>

@@ -91,7 +91,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             <li><a href="mislistas.php" class="block hover:text-orange-500">Mis Listas</a></li>
             <li>
                 <?php if (isset($_SESSION['nombre'])): ?>
-                    <a id="logoutLink" href="logout.php" class="block hover:text-orange-500">Cerrar Sesión</a>
+                    <a id="logoutLink" href="../modelos/logout.php" class="block hover:text-orange-500">Cerrar Sesión</a>
                 <?php else: ?>
                     <a id="acceder" href="#" class="block hover:text-orange-500">Acceder</a>
                 <?php endif; ?>
@@ -106,7 +106,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <button id="closeModal" class="ml-[300px] text-orange-500 hover:text-gray-700 text-4xl">&times;</button>
 
-            <form action="login.php" id="loginForm" method="post">
+            <form action="../controladores/LoginController.php" id="loginForm" method="post">
                 <h2 class="text-lg font-bold mb-4">Iniciar Sesión</h2>
                 <input name="usuario" type="text" placeholder="Usuario/Correo" class="w-full p-2 mb-2 border rounded">
                 <input name="contrasena" type="password" placeholder="Contraseña"
@@ -116,7 +116,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
                         class="text-blue-500">Regístrate</a></p>
             </form>
 
-            <form action="register.php" id="registerForm" class="hidden" method="post">
+            <form action="../controladores/RegisterController.php" id="registerForm" class="hidden" method="post">
                 <h2 class="text-lg font-bold mb-4">Registro</h2>
                 <input name="nombre" id="nombre" type="text" placeholder="Nombre(s)"
                     class="w-full p-2 mb-2 border rounded" required>
@@ -257,7 +257,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             this.submit();
         });
     </script>
-
+    <script src="../js/login.js"></script>
 
 </body>
 
