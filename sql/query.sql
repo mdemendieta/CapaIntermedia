@@ -94,14 +94,14 @@ CREATE TABLE CarritoCompras (
     primary key(id_usuario,id_producto)
 );
 
--- drop table Ventas;
+-- drop table Venta;
 CREATE TABLE Venta (
     id_venta INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Clave de identificación de la Venta',
     id_vendedor INT COMMENT 'Clave de identificación del Vendedor',
     id_cliente INT COMMENT 'Clave de identificación del Comprador',
     id_producto INT COMMENT 'Clave del Producto',
     CantidadVendida INT COMMENT 'Cantidad Vendida',
-    PrecioTotal INT COMMENT 'Precio total entre la cantidad del producto',
+    PrecioTotal DECIMAL(10, 2) COMMENT 'Precio del producto' COMMENT 'Precio total entre la cantidad del producto',
     FechaHoraVenta TIMESTAMP COMMENT 'Fecha y Hora de la Venta',
     FOREIGN KEY (id_vendedor) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_cliente) REFERENCES Usuario(id_usuario), 
@@ -138,12 +138,15 @@ CREATE TABLE Cotizacion (
     id_vendedor INT,
     id_producto INT,
     unidades INT,
-    cuota INT,
+    Detalles TEXT COMMENT 'Comentarios acerca de la cotización',
+    PrecioTotal DECIMAL(10, 2) COMMENT 'Cuota del cotización',
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado ENUM('Pendiente', 'Aceptado','Rechazado','Terminado') DEFAULT "Pendiente" COMMENT 'Estado de la cotización',
     FOREIGN KEY (id_comprador) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_vendedor) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
+
 
 /*
 CREATE TABLE IntentosLogin (
@@ -162,7 +165,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'cliente@gmail.com', 'MaxWell', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Cliente',
-    'avatar.png', 'Maximiliano', 'de Mendieta', 'Cavazos',
+    Null, 'Maximiliano', 'de Mendieta', 'Cavazos',
     '1995-06-15', 'Masculino', 'Activo'
 );
 
@@ -172,7 +175,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'vendedor@gmail.com', 'Veck', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Vendedor',
-    'avatar.png', 'Victor Hugo', 'Molina', 'Ruiz',
+    Null, 'Victor Hugo', 'Molina', 'Ruiz',
     '2003-08-01', 'Masculino', 'Activo'
 );
 
@@ -182,7 +185,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'admin@gmail.com', 'Padroneitor', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Administrador',
-    'avatar.png', 'Juan José', 'Rodríguez', 'Padrón',
+    Null, 'Juan José', 'Rodríguez', 'Padrón',
     '1990-03-22', 'Masculino', 'Activo'
 );
 
@@ -192,7 +195,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'superadmin@gmail.com', 'AdrianAdmin', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Superadministrador',
-    'avatar.png', 'Adriana Guadalupe', 'Garza', 'Álvarez',
+    Null, 'Adriana Guadalupe', 'Garza', 'Álvarez',
     '1985-09-10', 'Femenino', 'Activo'
 );
 -- Chats
@@ -205,6 +208,7 @@ VALUES (1, 1, 'Hola, ¿cuál es la cotización?');
 -- Mensaje del Vendedor (Veck)
 INSERT INTO MensajeChat (id_conversacion, id_remitente, Mensaje)
 VALUES (1, 2, '$1500, negociable.');
--- select * from mensajechat
+-- select * from producto
+
 
 

@@ -22,7 +22,7 @@ p{
 .chat-container {
     display: flex;
     width: 80%;
-    height: 600px;
+    height: 50rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     overflow: hidden;
@@ -113,7 +113,7 @@ p{
     border-radius: 5px;
     outline: none;
 }
-.chat-input button, .form-group button{
+.chat-input button, .form-group button, .details, .continue-btn{
     padding: 10px;
     background: #4d3899;
     color: white;
@@ -123,7 +123,7 @@ p{
     border-radius: 5px;
     transition: background 0.3s;
 }
-.chat-input button:hover , .form-group button:hover{
+.chat-input button:hover , .form-group button:hover, .details:hover, .continue-btn:hover{
     background: #281668;
 }
 .user-msg{
@@ -134,6 +134,127 @@ p{
     margin: 3px;
     align-self: flex-end;
 }
+/*-------- Apartado Cotizacion -----------*/
+.quote-wrapper {
+    display: flex;
+    margin: 10px;
+    max-width: 60%;
+}
+
+.quote-left {
+    justify-content: flex-start;
+}
+
+.quote-right {
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+
+.quote-msg {
+    background: #ffffff;
+    word-break: break-word;
+    word-spacing: normal;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    gap: 10px;
+    align-items: center;
+}
+
+.quote-msg img {
+    width: 110px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.quote-msg .section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: start;
+}
+/*--------------- Modal Detalles de cotización ----------------*/
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.modal.hidden {
+    display: none;
+}
+.modal-body{
+    display: flex;
+    gap: 15px;
+}
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    position: fixed;
+    top: auto;
+    left: auto;
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    width: 90%;
+    max-width: 620px;
+    margin: 120px 0 20px 60px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 11;
+}
+
+.modal-content h3{
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #4d3899;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.modal-img {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.modal-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    word-break: break-all;
+    word-spacing: normal;
+    gap: 6px;
+}
+
+.close-btn {
+    position: absolute;
+    color:#5a479c;;
+    top: 10px;
+    right: 16px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.details.disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+/*-------------------------------*/
 .contact-msg{
     background: #5a479c;
     color: white;
@@ -174,10 +295,11 @@ p{
     top: auto;
     left: auto;
     width: fit-content;
+    max-width: 52rem;
     height: fit-content;
     background-color: white;
     padding: 15px;
-    margin-top: 35px;
+    margin-top: 8rem;
     border: 1px #ccc solid;
     border-radius: 15px;
     align-items: center;
@@ -217,6 +339,12 @@ p{
     border-radius: 5px;
     width: 100%;
     resize: none;
+}
+#quote-container #product-inventory {
+    color: #585858;
+    margin: 0;
+    width: 5rem;
+    border: none;
 }
 #product-image{
     width: 220px;

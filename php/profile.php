@@ -32,7 +32,7 @@ session_start();
                 <div class="section-middle">
                     <h2 class="justify-left"><?php echo $_SESSION['nombre'] ?? 'Usuario'; ?></h2>
                     <p class="text-v1">Se unió el: 15 de febrero de 2023</p>
-                    <span class="role seller"><?php echo $_SESSION['rol'] ?? 'Comprador'; ?></span>
+                    <span class="role seller"><?php echo $_SESSION['tipo'] ?? 'Cliente'; ?></span>
                     <span class="text-v1">Público</span>
                     <button onclick="window.location.href='chat.php'" class="btn-v2 pl-4 pr-4 ml-20">Mensaje</button>
                 </div>

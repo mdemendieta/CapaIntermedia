@@ -3,7 +3,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-Type: application/json'); // Muy importante
-include('conexion.php');
+include 'conexion.php';
 
 // Leer el cuerpo JSON
 $data = json_decode(file_get_contents("php://input"), true);
@@ -24,6 +24,8 @@ if (!$idRemitente) {
 }
 
 // Primero, ver si ya existe la conversación
+$db = new Database();
+$conexion = $db->getConexion();
 $stmt = $conexion->prepare("SELECT id_conversacion FROM Conversacion 
                         WHERE (id_usuario1 = ? AND id_usuario2 = ?) 
                         OR (id_usuario1 = ? AND id_usuario2 = ?)");

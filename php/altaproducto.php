@@ -2,13 +2,15 @@
 if(!isset($_SESSION)){
     session_start(); // Asegúrate de tener la sesión iniciada
 }
-include('conexion.php'); // Tu conexión a MySQL
 
 // Verifica si el usuario está en sesión
 if (!isset($_SESSION['id_usuario'])) {
     die('Debes iniciar sesión para publicar un producto.');
 }
 
+require_once '../modelos/conexion.php'; // Tu conexión a MySQL
+$db = new Database();
+$conexion = $db->getConexion();
 // Obtener categorías existentes
 $queryCategorias = "SELECT id_categoria, NombreCategoria FROM Categoria";
 $resultCategorias = mysqli_query($conexion, $queryCategorias);
@@ -54,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Procesar las imágenes
         if (isset($_FILES['imagenes']) && count($_FILES['imagenes']['name']) > 0) {
             $total = count($_FILES['imagenes']['name']);
-            $uploadDirectory = "uploads/"; // Carpeta donde guardaremos las imágenes
+            $uploadDirectory = "../recursos/productos"; // Carpeta donde guardaremos las imágenes
 
             if (!is_dir($uploadDirectory)) {
                 mkdir($uploadDirectory, 0777, true); // Crear carpeta si no existe
@@ -98,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="bg-gray-100">
 
-<?php include('navbar.php'); ?>
+<?php include 'navbar.php'; ?>
 
 <div id="main-content" class="flex transition-all duration-300 p-6 bg-orange-100 min-h-screen justify-center">
     <form action="" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4 items-center justify-center w-[70%]">
@@ -130,8 +132,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Nueva categoría -->
         <div id="nuevaCategoriaCampos" class="col-span-2 hidden">
-            <input type="text" name="nuevaCategoria" placeholder="Nombre de la nueva categoría" class="w-full p-2 mb-2 border rounded">
-            <textarea name="descripcionCategoria" placeholder="Descripción de la nueva categoría" class="w-full p-2 mb-2 border rounded" rows="2"></textarea>
+            <input type="text" name="nuevaCategoria" placeholder="Nombre de la nueva categoría" class="w-full p-2 mb-2 border rounded" minlength="3" required>
+            <textarea name="descripcionCategoria" placeholder="Descripción de la nueva categoría" class="w-full p-2 mb-2 border rounded" rows="2" required></textarea>
         </div>
 
         <!-- Tipo de publicación -->

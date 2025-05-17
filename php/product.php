@@ -11,7 +11,7 @@
 <?php include('navbar.php'); ?>
 </header>
 <body>
-<div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 ml-64">
+<div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 ml-64 min-h-screen">
     <div class="product-container">
         <!-- Galería de imágenes -->
         <div class="image-gallery">

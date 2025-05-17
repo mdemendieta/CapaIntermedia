@@ -1,12 +1,14 @@
 <?php
-if(!isset($_SESSION['email'])) {
+if(session_status() === PHP_SESSION_NONE) {
     session_start(); // Asegúrate de tener la sesión iniciada
 }
-include('conexion.php'); // Tu conexión a la base de datos
+include 'conexion.php'; // Tu conexión a la base de datos
 
 $idUsuarioActual = $_SESSION['email'];
 
 // Buscamos usuarios activos distintos al que está logueado
+$db = new Database();
+$conexion = $db->getConexion();
 $stmt = $conexion->prepare("SELECT id_usuario, email, nombre_usuario, nombre, apellido_P, avatar 
                         FROM Usuario 
                         WHERE estado = 'Activo' AND email != ?");
@@ -17,10 +19,11 @@ $result = $stmt->get_result();
 $contacts = [];
 
 while ($row = $result->fetch_assoc()) {
+    $img = (isset($row['avatar']) && $row['avatar'] !== null) ? 'usuarios/'. $row['avatar'] : 'perfilvacio.jpg'; // Ajusta la ruta de la imagen
     $contacts[] = [
         'id' => $row['id_usuario'],
         'name' => $row['nombre'] . " " . $row['apellido_P'],
-        'img' => '../recursos/' . ('perfilvacio.jpg') // Ajusta ruta
+        'img' => '../recursos/' . $img // Ajusta ruta
     ];
 }
 

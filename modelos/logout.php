@@ -11,6 +11,6 @@ session_unset();
 session_destroy();
 
 // Redirigir al login
-header("Location: landing.php");
+header("Location: ../php/landing.php");
 exit();
 ?>

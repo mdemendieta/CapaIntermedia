@@ -3,8 +3,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include 'conexion.php'; // Importante que esté antes
-
+require_once '../modelos/conexion.php'; // Importante que esté antes
+$db = new Database();
+$conexion = $db->getConexion();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Proceso para crear la lista (cuando se envía el formulario vía fetch)
     if (isset($_POST['nombreLista']) && isset($_POST['descripcion'])) {
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
 
-    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100">
+    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 min-h-screen">
 
         <!-- Barra de búsqueda -->
         <input type="text" id="search" name="search" placeholder="Buscar una lista por su nombre..."
@@ -95,9 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-
-            include 'conexion.php'; // asegúrate de incluir tu archivo de conexión a la BD
-            
+            require_once '../modelos/conexion.php'; // Importante que esté antes
+            $db = new Database();
+            $conexion = $db->getConexion();
             if (isset($_SESSION['id_usuario'])) {
                 $id_usuario = $_SESSION['id_usuario']; // ID del usuario en sesión
                 $consultaListas = "SELECT * FROM ListaUsuario WHERE id_usuario = $id_usuario";

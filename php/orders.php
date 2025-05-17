@@ -11,7 +11,7 @@
 
 <body class="flex flex-col">
 
-<div id="main-content" class="flex justify-center transition-all duration-300 p-6 bg-orange-100">
+<div id="main-content" class="flex justify-center transition-all duration-300 p-6 bg-orange-100 min-h-screen">
 
     <div class="orders-container">
         <!-- Barra de búsqueda y filtros -->

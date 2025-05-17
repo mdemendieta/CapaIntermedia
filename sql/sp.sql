@@ -61,65 +61,39 @@ END$$
 
 DELIMITER ;
 
-/*
+-- Vista Producto (con una 1 sóla imagen para Previews)--
+CREATE VIEW VistaDetalleProducto AS
+SELECT 
+    p.id_producto,
+    p.Nombre,
+    p.Descripcion,
+    p.Precio,
+    p.Inventario,
+    p.Estado,
+    p.Tipo,
+    p.id_vendedor,
+    p.id_categoria,
+    (SELECT URL 
+     FROM MultimediaProducto m 
+     WHERE m.id_producto = p.id_producto 
+     ORDER BY m.id_multimedia ASC 
+     LIMIT 1) AS imagen_principal
+FROM Producto p;
 
-DELIMITER //
-CREATE PROCEDURE sp_IniciarSesion(
-    IN p_usuario VARCHAR(255)
-)
-BEGIN
-    DECLARE v_id_usuario INT;
-    DECLARE v_contrasena_bd VARCHAR(255);
-    DECLARE v_intentos INT;
 
-    -- Buscamos el usuario
-    SELECT id_usuario, contrasena, intentos_fallidos
-    INTO v_id_usuario, v_contrasena_bd, v_intentos
-    FROM Usuario
-    WHERE email = p_usuario OR nombre_usuario = p_usuario
-    LIMIT 1;
-
-    -- Si no existe el usuario, lanzamos error
-    IF v_id_usuario IS NULL THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Usuario no encontrado';
-    END IF;
-
-    -- Devolvemos los datos que necesitamos (contraseña hash + intentos fallidos)
-    SELECT v_id_usuario AS id_usuario, v_contrasena_bd AS contrasena, v_intentos AS intentos_fallidos;
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE sp_ManejarIntentoFallido(IN p_usuario VARCHAR(255))
-BEGIN
-    DECLARE v_intentos INT DEFAULT 0;
-
-    -- Buscar si ya existe registro
-    SELECT intentos INTO v_intentos FROM IntentosLogin WHERE usuario = p_usuario LIMIT 1;
-
-    IF v_intentos IS NULL THEN
-        -- Primer intento fallido
-        INSERT INTO IntentosLogin (usuario, intentos) VALUES (p_usuario, 1);
-    ELSE
-        -- Aumentar el contador
-        UPDATE IntentosLogin SET intentos = v_intentos + 1 WHERE usuario = p_usuario;
-
-        -- Si llega a 3, suspender al usuario
-        IF v_intentos + 1 >= 3 THEN
-            UPDATE Usuario SET estado = 'Suspendido' WHERE email = p_usuario OR nombre_usuario = p_usuario;
-            DELETE FROM IntentosLogin WHERE usuario = p_usuario;
-        END IF;
-    END IF;
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE sp_LimpiarIntentos(IN p_usuario VARCHAR(255))
-BEGIN
-    DELETE FROM IntentosLogin WHERE usuario = p_usuario;
-END //
-DELIMITER ;
-*/
--- drop procedure sp_IniciarSesion
--- CALL sp_IniciarSesion ('admin@gmail.com');
-
+-- Vista Productos para Cotizar --
+CREATE VIEW VistaProductoCotizacion AS
+SELECT 
+    p.id_producto,
+    p.Nombre,
+    p.Descripcion,
+    p.Precio,
+    p.Inventario,
+    p.Estado,
+    p.Tipo,
+    p.id_vendedor,
+    (SELECT URL FROM MultimediaProducto m 
+     WHERE m.id_producto = p.id_producto 
+     ORDER BY m.id_multimedia ASC LIMIT 1) AS imagen_principal
+FROM Producto p
+WHERE p.Estado = 'Aprobado' AND p.Tipo = 'Cotizar';

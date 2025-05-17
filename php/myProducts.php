@@ -10,7 +10,7 @@
 
 
 <body>
-<div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100">
+<div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 min-h-screen">
     <div class="my-container">
         <!-- Barra de búsqueda y filtros -->
         <div class="filters">   
