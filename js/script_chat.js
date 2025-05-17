@@ -320,6 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (data.success) {
                     alert('Cotización cancelada');
                     document.getElementById('cotizacion-modal').classList.add('hidden');
+                    document.getElementById('modal-content').style.display = "none";
 
                     // Cambiar botón a "Expirado"
                     botonDetalle.textContent = 'Expirado';

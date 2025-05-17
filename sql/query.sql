@@ -165,7 +165,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'cliente@gmail.com', 'MaxWell', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Cliente',
-    'avatar.png', 'Maximiliano', 'de Mendieta', 'Cavazos',
+    Null, 'Maximiliano', 'de Mendieta', 'Cavazos',
     '1995-06-15', 'Masculino', 'Activo'
 );
 
@@ -175,7 +175,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'vendedor@gmail.com', 'Veck', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Vendedor',
-    'avatar.png', 'Victor Hugo', 'Molina', 'Ruiz',
+    Null, 'Victor Hugo', 'Molina', 'Ruiz',
     '2003-08-01', 'Masculino', 'Activo'
 );
 
@@ -185,7 +185,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'admin@gmail.com', 'Padroneitor', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Administrador',
-    'avatar.png', 'Juan José', 'Rodríguez', 'Padrón',
+    Null, 'Juan José', 'Rodríguez', 'Padrón',
     '1990-03-22', 'Masculino', 'Activo'
 );
 
@@ -195,7 +195,7 @@ INSERT INTO Usuario (
     fecha_Nacimiento, genero, estado
 ) VALUES (
     'superadmin@gmail.com', 'AdrianAdmin', '$2y$10$6jVQWbYLUo1L.o6z8ry.puJXbLzwpI36kd2oMAPo8KQ1r2C2IuDT6', 'Superadministrador',
-    'avatar.png', 'Adriana Guadalupe', 'Garza', 'Álvarez',
+    Null, 'Adriana Guadalupe', 'Garza', 'Álvarez',
     '1985-09-10', 'Femenino', 'Activo'
 );
 -- Chats

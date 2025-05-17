@@ -1,5 +1,5 @@
 <?php
-if(!isset($_SESSION['email'])) {
+if(session_status() === PHP_SESSION_NONE) {
     session_start(); // Asegúrate de tener la sesión iniciada
 }
 include 'conexion.php'; // Tu conexión a la base de datos
@@ -19,10 +19,11 @@ $result = $stmt->get_result();
 $contacts = [];
 
 while ($row = $result->fetch_assoc()) {
+    $img = (isset($row['avatar']) && $row['avatar'] !== null) ? 'usuarios/'. $row['avatar'] : 'perfilvacio.jpg'; // Ajusta la ruta de la imagen
     $contacts[] = [
         'id' => $row['id_usuario'],
         'name' => $row['nombre'] . " " . $row['apellido_P'],
-        'img' => '../recursos/' . ('perfilvacio.jpg') // Ajusta ruta
+        'img' => '../recursos/' . $img // Ajusta ruta
     ];
 }
 
