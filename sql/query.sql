@@ -94,14 +94,14 @@ CREATE TABLE CarritoCompras (
     primary key(id_usuario,id_producto)
 );
 
--- drop table Ventas;
+-- drop table Venta;
 CREATE TABLE Venta (
     id_venta INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Clave de identificación de la Venta',
     id_vendedor INT COMMENT 'Clave de identificación del Vendedor',
     id_cliente INT COMMENT 'Clave de identificación del Comprador',
     id_producto INT COMMENT 'Clave del Producto',
     CantidadVendida INT COMMENT 'Cantidad Vendida',
-    PrecioTotal INT COMMENT 'Precio total entre la cantidad del producto',
+    PrecioTotal DECIMAL(10, 2) COMMENT 'Precio del producto' COMMENT 'Precio total entre la cantidad del producto',
     FechaHoraVenta TIMESTAMP COMMENT 'Fecha y Hora de la Venta',
     FOREIGN KEY (id_vendedor) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_cliente) REFERENCES Usuario(id_usuario), 
@@ -138,12 +138,15 @@ CREATE TABLE Cotizacion (
     id_vendedor INT,
     id_producto INT,
     unidades INT,
-    cuota INT,
+    Detalles TEXT COMMENT 'Comentarios acerca de la cotización',
+    PrecioTotal DECIMAL(10, 2) COMMENT 'Cuota del cotización',
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado ENUM('Pendiente', 'Aceptado','Rechazado','Terminado') DEFAULT "Pendiente" COMMENT 'Estado de la cotización',
     FOREIGN KEY (id_comprador) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_vendedor) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
+
 
 /*
 CREATE TABLE IntentosLogin (
@@ -205,6 +208,7 @@ VALUES (1, 1, 'Hola, ¿cuál es la cotización?');
 -- Mensaje del Vendedor (Veck)
 INSERT INTO MensajeChat (id_conversacion, id_remitente, Mensaje)
 VALUES (1, 2, '$1500, negociable.');
--- select * from mensajechat
+-- select * from producto
+
 
 

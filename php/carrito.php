@@ -11,7 +11,7 @@
 </header>
 <body class="bg-gray-100">
     
-    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 ">
+    <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 min-h-screen">
         
         <!-- Título del carrito -->
         <h1 class="text-2xl font-bold mb-2">Carrito de Compras</h1>

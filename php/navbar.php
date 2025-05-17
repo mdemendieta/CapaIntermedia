@@ -6,9 +6,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $paginas = [
     'Inicio' => 'landing.php',
-    
+
     'Crear Admin' => 'altaadmin.php',
-    
+
     'Publicar Producto' => 'altaproducto.php',
     'Chat' => 'chat.php',
     'Carrito' => 'carrito.php',
@@ -24,6 +24,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar Dinámica</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/login.js"></script>
     <style>
         .nav-item {
             position: relative;
@@ -55,7 +56,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 overflow-hidden">
 
     <!-- Navbar -->
     <nav class=" bg shadow-md custom-nav flex items-center pl-4 transition-all duration-300 z-30" id="navbar">
@@ -84,7 +85,8 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             <img src="../recursos/perfilvacio.jpg" alt="Foto de perfil grande"
                 class="h-32 w-32 rounded-full border-4 border-orange-400 mb-4">
             <h2 class="text-lg font-bold mb-4">
-                <?php echo isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invitado"; ?></h2>
+                <?php echo isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : "Invitado"; ?>
+            </h2>
         </div>
         <ul class="space-y-4">
             <li><a href="profile.php" class="block hover:text-orange-500">Mi Perfil</a></li>
@@ -98,19 +100,22 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             </li>
         </ul>
     </div>
-    
-</div>
+
+    </div>
 
     <!-- Modal Login/Register (puedes separar esto si gustas) -->
     <div id="authModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
             <button id="closeModal" class="ml-[300px] text-orange-500 hover:text-gray-700 text-4xl">&times;</button>
 
-            <form action="../controladores/LoginController.php" id="loginForm" method="post">
+            <form id="loginForm">
                 <h2 class="text-lg font-bold mb-4">Iniciar Sesión</h2>
-                <input name="usuario" type="text" placeholder="Usuario/Correo" class="w-full p-2 mb-2 border rounded">
+                <input name="usuario" id="usuarioInput" type="text" placeholder="Usuario/Correo" class="w-full p-2 mb-2 border rounded">
                 <input name="contrasena" type="password" placeholder="Contraseña"
                     class="w-full p-2 mb-4 border rounded">
+                <label class="text-sm flex items-center mb-2">
+                    <input type="checkbox" id="recordarUsuario" class="mr-2"> Recordar usuario
+                </label>
                 <button class="w-full bg-orange-500 text-white py-2 rounded">Ingresar</button>
                 <p class="mt-2 text-sm">¿No tienes cuenta? <a href="#" id="showRegister"
                         class="text-blue-500">Regístrate</a></p>
@@ -257,7 +262,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             this.submit();
         });
     </script>
-    <script src="../js/login.js"></script>
+    
 
 </body>
 

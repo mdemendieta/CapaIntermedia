@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Procesar las imágenes
         if (isset($_FILES['imagenes']) && count($_FILES['imagenes']['name']) > 0) {
             $total = count($_FILES['imagenes']['name']);
-            $uploadDirectory = "uploads/"; // Carpeta donde guardaremos las imágenes
+            $uploadDirectory = "../recursos/productos"; // Carpeta donde guardaremos las imágenes
 
             if (!is_dir($uploadDirectory)) {
                 mkdir($uploadDirectory, 0777, true); // Crear carpeta si no existe
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="bg-gray-100">
 
-<?php include('navbar.php'); ?>
+<?php include 'navbar.php'; ?>
 
 <div id="main-content" class="flex transition-all duration-300 p-6 bg-orange-100 min-h-screen justify-center">
     <form action="" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4 items-center justify-center w-[70%]">

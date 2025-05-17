@@ -13,7 +13,7 @@
 </header>
 <body class="bg-gray-100">
     
-    <div id="main-content" class="flex transition-all duration-300 p-6 bg-orange-100 min-h-screen justify-center">
+    <div id="main-content" class="flex transition-all duration-300 p-6 bg-orange-100 min-h-screen justify-center min-h-screen">
 
     <div id="EditarPerfilForm" class="flex flex-col items-center w-[70%]">
                 <h2 class="text-lg font-bold mb-4">Modificar Información Personal</h2>
