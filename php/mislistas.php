@@ -51,9 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body class="bg-gray-100">
-
+<?php include 'navbar.php'; ?>
     
-
     <div id="main-content" class="flex-1 transition-all duration-300 p-6 bg-orange-100 min-h-screen">
 
         <!-- Barra de búsqueda -->
@@ -113,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo '</div>';
                     }
                 } else {
-                    echo '<p class="text-gray-600">No tienes listas creadas aún.</p>';
+                    echo '<div id="list-msg"><p class="text-gray-600">No tienes listas creadas aún.</p><div>';
                 }
             }
 
@@ -146,6 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         document.getElementById("listasContainer").prepend(nuevaLista); // Insertar al inicio
                         alert("Lista creada exitosamente");
                         document.getElementById('crearListaModal').classList.add('hidden'); // Cerrar modal
+                        document.getElementById("list-msg").innerHTML=''; // Limpiar el aviso
+                    }
+                    else {
+                        alert("Error al crear la lista.");
                     }
                 })
                 .catch(error => {
