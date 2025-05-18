@@ -4,8 +4,8 @@ class Database {
     private $host = "localhost";
     private $usuario = "root";
     private $contrasena = "";
-    private $bd = "bd_capaInter"; // Reemplaza por el nombre real
-    private $puerto = 33065; // Reemplaza por el puerto real
+    private $bd = "bd_capaInter"; 
+    private $puerto = 33065; // Default 3306
     public $conexion;
 
     public function __construct() {
