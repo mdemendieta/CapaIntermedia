@@ -111,13 +111,27 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             </h2>
         </div>
         <ul class="space-y-4">
-            <li><a href="profile.php" class="block hover:text-orange-500">Mi Perfil</a></li>
-            <li><a href="mislistas.php" class="block hover:text-orange-500">Mis Listas</a></li>
+            <li>
+                <?php if (isset($_SESSION['nombre'])): ?>
+                    <a href="profile.php" class="block hover:text-orange-500">Mi Perfil</a>
+                <?php else: ?>
+                    <a href="#" onclick="showLoginModal()" class="block hover:text-orange-500">Mi Perfil</a>
+                <?php endif; ?>
+                
+            </li>
+            <li>
+                <?php if (isset($_SESSION['nombre'])): ?>
+                    <a href="mislistas.php" class="block hover:text-orange-500">Mis Listas</a>
+                <?php else: ?>
+                    <a href="#" onclick="showLoginModal()" class="block hover:text-orange-500">Mis Listas</a>
+                <?php endif; ?>
+
+            </li>
             <li>
                 <?php if (isset($_SESSION['nombre'])): ?>
                     <a id="logoutLink" href="../modelos/logout.php" class="block hover:text-orange-500">Cerrar Sesión</a>
                 <?php else: ?>
-                    <a id="acceder" href="#" class="block hover:text-orange-500">Acceder</a>
+                    <a id="acceder" href="#" onclick="showLoginModal()" class="block hover:text-orange-500">Acceder</a>
                 <?php endif; ?>
             </li>
         </ul>
@@ -132,7 +146,8 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 
             <form id="loginForm">
                 <h2 class="text-lg font-bold mb-4">Iniciar Sesión</h2>
-                <input name="usuario" id="usuarioInput" type="text" placeholder="Usuario/Correo" class="w-full p-2 mb-2 border rounded">
+                <input name="usuario" id="usuarioInput" type="text" placeholder="Usuario/Correo"
+                    class="w-full p-2 mb-2 border rounded">
                 <input name="contrasena" type="password" placeholder="Contraseña"
                     class="w-full p-2 mb-4 border rounded">
                 <label class="text-sm flex items-center mb-2">
@@ -200,13 +215,12 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             }
         });
 
-        // Mostrar el modal de login/registro al hacer clic en la foto de perfil
-        if (document.getElementById("acceder")) {
-            document.getElementById("acceder").addEventListener("click", function () {
-                document.getElementById("authModal").classList.remove("hidden");
-                document.body.classList.add("overflow-hidden");
-            });
+        // Mostrar el modal de login/registro 
+        function showLoginModal() {
+            document.getElementById("authModal").classList.remove("hidden");
+            document.body.classList.add("overflow-hidden");
         }
+
         // Cerrar el modal
         document.getElementById("closeModal").addEventListener("click", function () {
             document.getElementById("authModal").classList.add("hidden");
@@ -284,7 +298,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             this.submit();
         });
     </script>
-    
+
 
 </body>
 
