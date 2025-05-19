@@ -26,7 +26,7 @@ if ($rol === 'Cliente') {
     ];
 } elseif ($rol === 'Administrador') {
     $paginas = [
-        'Validar Producto' => 'validarproducto.php'
+        'Validar Producto' => 'aprobarrechazar.php'
     ];
 } else {
     // Usuario no autenticado o rol no definido
@@ -87,10 +87,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
                 id="menuToggle">
         </div>
 
-        <a href="landing.php" class="mr-auto">
-            <img src="https://png.pngtree.com/element_our/png/20180926/pets-vector-logo-template-this-cat-and-dog-logo-could-be-png_113815.jpg"
-                alt="Logo" class="h-10">
-        </a>
+        
 
         <?php foreach ($paginas as $nombre => $url): ?>
             <a href="<?php echo $url; ?>"
@@ -119,14 +116,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
                 <?php endif; ?>
                 
             </li>
-            <li>
-                <?php if (isset($_SESSION['nombre'])): ?>
-                    <a href="mislistas.php" class="block hover:text-orange-500">Mis Listas</a>
-                <?php else: ?>
-                    <a href="#" onclick="showLoginModal()" class="block hover:text-orange-500">Mis Listas</a>
-                <?php endif; ?>
-
-            </li>
+            
             <li>
                 <?php if (isset($_SESSION['nombre'])): ?>
                     <a id="logoutLink" href="../modelos/logout.php" class="block hover:text-orange-500">Cerrar Sesión</a>
