@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             if (!Array.isArray(messages) || messages.length === 0) {
                 // Esto es normal si es un chat nuevo (obtenido por URL y fetchContactDetails)
-                chatContent.innerHTML = "<p>Aún no hay mensajes. ¡Envía el primero!</p>";
+                chatContent.innerHTML = "<p id='no-msg'>Aún no hay mensajes. ¡Envía el primero!</p>";
             } else {
                 messages.forEach(msg => {
                     const div = document.createElement("div");
@@ -217,11 +217,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function sendMessage() {
         const text = messageInput.value.trim();
         if (!text || !currentContactId) return;
-
-        // Lógica para añadir el contacto a la lista visual si no está (solo si es necesario)
-        // y luego enviar el mensaje.
-        // Si es un contacto nuevo (no en `contacts`), después de enviar el primer mensaje,
-        // podrías querer recargar `contactos.php` o añadirlo dinámicamente a `contacts` y `renderContacts()`.
 
         fetch('../modelos/enviarmensaje.php', {
             method: 'POST',
