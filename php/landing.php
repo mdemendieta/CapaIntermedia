@@ -89,7 +89,7 @@ while ($row = mysqli_fetch_assoc($resultCategorias)) {
             // Mostrar los productos
             if (mysqli_num_rows($resultadoProductos) > 0) {
                 while ($producto = mysqli_fetch_assoc($resultadoProductos)) {
-                    echo '<a href="product.php" class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col">';
+                    echo '<a href="product.php?id=' . $producto['id_producto'] . '" class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col">';
                     
                     // Carrusel con SwiperJS
                     echo '<div class="h-[300px] w-full bg-orange-500 rounded-[8px] overflow-hidden">

@@ -39,7 +39,7 @@ if (isset($_SESSION['nombre_usuario'])) {
             <div class="chat-box">
                 <div class="chat-header">
                     <img id="chat-img" src="../recursos/productos/gato2.jpeg" alt="Vendedor">
-                    <span id="chat-name">Selecciona un contacto</span>
+                    <span id="chat-username">Selecciona un contacto</span><span id="chat-name"></span>
                 </div>
 
                 <div class="chat-content" id="chat-content">

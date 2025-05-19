@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
                 // Validar que sea una imagen o video
-                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'avi', 'mov'];
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp','mp4', 'webm','ogv', 'avi', 'mov'];
 
                 if (in_array($fileExtension, $allowedExtensions)) {
 

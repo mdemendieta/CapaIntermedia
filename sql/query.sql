@@ -71,9 +71,11 @@ CREATE TABLE Comentario (
     id_producto INT COMMENT 'Producto al que va dirigdo el comentario',
     id_autor INT COMMENT 'Quien publicó el comentario',
     Texto VARCHAR(500) COMMENT 'Contenido del comentario',
+    FechaHora TIMESTAMP DEFAULT current_timestamp COMMENT 'Fecha de publicación del comenario',
     FOREIGN KEY (id_autor) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
+
 
 -- drop table MultimediaProducto;
 CREATE TABLE MultimediaProducto (
