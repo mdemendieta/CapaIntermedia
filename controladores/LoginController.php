@@ -1,6 +1,6 @@
 <?php
 session_start();
-header('Content-Type: application/json');
+header('Content-Type: application/json'); // Asegúrate que esto esté si esperas JSON en el JS
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'];
@@ -31,11 +31,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['genero'] = $usuario_data['genero'];
             $_SESSION['fecha_Nacimiento'] = $usuario_data['fecha_Nacimiento'];
 
-            $redirect = ($usuario_data['tipo'] === 'Superadministrador') ? '../php/altaadmin.php' : '../php/landing.php';
+            $redirect = '';
+            switch ($usuario_data['tipo']) {
+                case 'Superadministrador':
+                    $redirect = '../php/altaadmin.php';
+                    break;
+                case 'Administrador':
+                    $redirect = '../php/aprobarrechazar.php';
+                    break;
+                case 'Vendedor':
+                case 'Cliente':
+                    // Para Vendedor y Cliente, redirigimos a su perfil o landing.
+                    // profile.php ahora tomará id_usuario_perfil de la sesión si es para uno mismo.
+                    $redirect = '../php/profile.php'; // O landing.php si prefieres
+                    break;
+                default:
+                    $redirect = '../php/landing.php'; // Fallback
+                    break;
+            }
+
             echo json_encode([
                 'success' => true,
                 'redirect' => $redirect,
-                'usuario' => [
+                'usuario' => [ // Puedes enviar datos adicionales si tu JS los usa
                     'nombre' => $usuario_data['nombre'],
                     'tipo' => $usuario_data['tipo']
                 ]
@@ -49,3 +67,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'error' => 'Método no permitido.']);
 }
+?>
