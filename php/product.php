@@ -82,8 +82,26 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 $comentarios[] = $row_comentarios;
             }
             $stmt_comentarios->close();
+
+            $usuario_puede_comentar_valorar = false;
+            if (isset($_SESSION['id_usuario']) && $product_id) {
+                $id_cliente_actual = $_SESSION['id_usuario'];
+
+                // Consulta para verificar si el cliente ha comprado este producto
+                $stmt_venta_check = $conexion->prepare("SELECT COUNT(*) AS total_ventas FROM Venta WHERE id_cliente = ? AND id_producto = ?");
+                if ($stmt_venta_check) {
+                    $stmt_venta_check->bind_param("ii", $id_cliente_actual, $product_id);
+                    $stmt_venta_check->execute();
+                    $result_venta_check = $stmt_venta_check->get_result();
+                    $venta_info = $result_venta_check->fetch_assoc();
+                    if ($venta_info && $venta_info['total_ventas'] > 0) {
+                        $usuario_puede_comentar_valorar = true;
+                    }
+                    $stmt_venta_check->close();
+                }
+            }
         }
-        $conexion->close();
+        //$conexion->close();
     } else {
         $error_message = "ID de producto inválido.";
     }
@@ -165,8 +183,6 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                     </div>
                 </div>
 
-
-
                 <div class="flex-1 space-y-3">
                     <h1 class="text-3xl font-bold text-gray-800">
                         <?php echo htmlspecialchars($producto['ProductoNombre']); ?>
@@ -178,12 +194,36 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                     </p>
                     <div class="text-yellow-500 text-xl">
                         <?php
-                        $valoracion = round($producto['ProductoValoracion'] ?? 0);
+                        $valoracion_mostrada = round($producto['ProductoValoracion'] ?? 0);
                         for ($i = 1; $i <= 5; $i++): ?>
-                            <?php echo ($i <= $valoracion) ? '★' : '☆'; ?>
+                            <?php echo ($i <= $valoracion_mostrada) ? '★' : '☆'; ?>
                         <?php endfor; ?>
                         <span
                             class="text-gray-600 text-sm ml-1">(<?php echo number_format($producto['ProductoValoracion'] ?? 0, 1); ?>)</span>
+
+                        <?php if ($usuario_puede_comentar_valorar): ?>
+                            <form action="../modelos/guardar_valoracion.php" method="POST"
+                                class="inline-block ml-4 bg-gray-200 rounded p-1">
+                                <input type="hidden" name="id_producto" value="<?php echo $product_id; ?>">
+                                <input type="hidden" name="puntuacion" id="puntuacion_seleccionada" value="0">
+                                <div id="estrellasValoracion" class="inline-flex cursor-pointer">
+                                    <span class="star text-2xl text-gray-400" data-value="1">☆</span>
+                                    <span class="star text-2xl text-gray-400" data-value="2">☆</span>
+                                    <span class="star text-2xl text-gray-400" data-value="3">☆</span>
+                                    <span class="star text-2xl text-gray-400" data-value="4">☆</span>
+                                    <span class="star text-2xl text-gray-400" data-value="5">☆</span>
+                                </div>
+                                <button type="submit" id="btnEnviarValoracion"
+                                    class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 mb-1 rounded">Valorar</button>
+                            </form>
+                            <p id="valoracionError" class="text-red-500 text-xs mt-1"></p>
+
+                        <?php elseif (isset($_SESSION['id_usuario'])): ?>
+                            <span class="text-gray-500 text-sm ml-2">Debes comprar este producto para valorarlo.</span>
+                        <?php else: ?>
+                            <span class="text-gray-500 text-sm ml-2"><a href="#" onclick="showLoginModal()"
+                                    class="text-blue-500 hover:underline">Inicia sesión</a> para valorar.</span>
+                        <?php endif; ?>
                     </div>
                     <?php if ($producto['ProductoDescripcion']): ?>
                         <p class="text-gray-600 mt-2 text-lg">
@@ -193,7 +233,7 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                     <?php endif; ?>
 
                     <?php if (isset($producto['ProductoTipo']) && $producto['ProductoTipo'] === 'Cotizar'): ?>
-                        <a href="chat.php?contactId=<?php echo htmlspecialchars($producto['ProductoVendedorID']); ?>"
+                        <a id="cotizar-btn" href="chat.php?contactId=<?php echo htmlspecialchars($producto['ProductoVendedorID']); ?>"
                             class="inline-block bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded text-lg">
                             Cotizar por Mensaje
                         </a>
@@ -204,6 +244,7 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
 
                     <div class="flex space-x-3 items-center pt-2">
+                    <?php if(isset($_SESSION['tipo']) && ($_SESSION['tipo']=== 'Cliente')): ?>    
                         <button id="btnAnadirLista"
                             class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded">
                             Añadir a una lista
@@ -213,8 +254,20 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                                 class="bg-[#ffae00] hover:bg-[#ff9d00] text-white font-semibold py-2 px-4 rounded">
                                 Añadir al carrito
                             </button>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <p class="bg-gray-200 text-gray-600 text-lg rounded p-2">[ Modo Visualización]</p>
+                            <script>
+                                document.getElementById('cotizar-btn').href="#";
+                            </script>
                         <?php endif; ?>
                     </div>
+                    <?php
+                    if (isset($_SESSION['mensaje_valoracion'])) {
+                        echo '<p class="p-2 mb-4 w-[fit-content]' . (strpos(strtolower($_SESSION['mensaje_valoracion']), 'error') !== false ?
+                            'bg-red-200 text-red-700' : 'bg-green-200 text-green-700') . ' rounded">' . htmlspecialchars($_SESSION['mensaje_valoracion']) . '</p>';
+                        unset($_SESSION['mensaje_valoracion']); // Limpiar el mensaje después de mostrarlo
+                    } ?>
                 </div>
 
             </div>
@@ -222,19 +275,12 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             <section class="mt-10 bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold mb-4">Comentarios</h3>
 
-                <div class="mb-6">
-                    <textarea class="w-full p-3 border rounded resize-none mb-2" rows="3"
-                        placeholder="Escribe un comentario..."></textarea>
-                    <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded">Enviar
-                        Comentario</button>
-                </div>
-
                 <div class="space-y-4">
                     <?php if (!empty($comentarios)): ?>
                         <?php foreach ($comentarios as $comentario):
                             $nombre_autor = !empty($comentario['AutorNombre']) ? $comentario['AutorNombre'] . ' ' . $comentario['AutorApellidoP'] : $comentario['AutorNombreUsuario'];
                             ?>
-                            <div class="border-b pb-4">
+                            <div class="border-b pb-4 mb-2">
                                 <p class="font-semibold text-indigo-700"><?php echo htmlspecialchars($nombre_autor); ?></p>
                                 <?php if (isset($comentario['FechaComentario'])): // Asumiendo que tienes una columna de fecha ?>
                                     <p class="text-xs text-gray-500 mb-1">
@@ -245,30 +291,86 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p class="text-gray-500">Aún no hay comentarios para este producto. ¡Sé el primero!</p>
+                        <p class="text-gray-500">Aún no hay comentarios para este producto.
+                            <?php if ($usuario_puede_comentar_valorar): ?>
+                                ¡Sé el primero!
+                            <?php endif; ?>
+                        </p>
                     <?php endif; ?>
                 </div>
+
+                <?php if ($usuario_puede_comentar_valorar): ?>
+                    <div class="mb-6">
+                        <form action="../modelos/guardar_comentario.php" method="POST">
+                            <input type="hidden" name="id_producto" value="<?php echo $product_id; ?>">
+                            <textarea name="texto_comentario" class="w-full p-3 border rounded resize-none mb-2" rows="3"
+                                placeholder="Escribe un comentario..." required></textarea>
+                            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded">Enviar
+                                Comentario</button>
+                        </form>
+                    </div>
+                <?php elseif (isset($_SESSION['id_usuario'])): ?>
+                    <p class="text-orange-400 mb-6">Debes comprar este producto para dejar un comentario.</p>
+                <?php else: ?>
+                    <p class="text-gray-500 mb-6"><a href="#" onclick="showLoginModal()"
+                            class="text-blue-500 hover:underline">Inicia sesión</a> y compra el producto para dejar un
+                        comentario.</p>
+                <?php endif; ?>
+
             </section>
+
+            <?php
+
+            $id_vendedor_actual = $producto['ProductoVendedorID'] ?? null;
+            $productos_relacionados = [];
+
+            if ($id_vendedor_actual && $product_id) {
+                $stmt_relacionados = $conexion->prepare("
+                SELECT 
+                    p.id_producto, 
+                    p.Nombre, 
+                    p.Precio,
+                    (SELECT URL FROM MultimediaProducto mp WHERE mp.id_producto = p.id_producto ORDER BY mp.id_multimedia ASC LIMIT 1) AS imagen_principal
+                FROM Producto p
+                WHERE p.id_vendedor = ? AND p.id_producto != ? AND p.Estado = 'Aprobado'
+                LIMIT 4 
+                "); // Muestra hasta 4 productos relacionados
+        
+                if ($stmt_relacionados) {
+                    $stmt_relacionados->bind_param("ii", $id_vendedor_actual, $product_id);
+                    $stmt_relacionados->execute();
+                    $result_relacionados = $stmt_relacionados->get_result();
+                    while ($row_rel = $result_relacionados->fetch_assoc()) {
+                        $productos_relacionados[] = $row_rel;
+                    }
+                    $stmt_relacionados->close();
+                }
+            }
+            ?>
 
             <section class="mt-12">
                 <h3 class="text-xl font-semibold mb-4">Más productos de este vendedor</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col">
-                        <img src="../recursos/productos/gato1.jpg" alt="Otro producto"
-                            class="w-full h-[300px] object-cover rounded mb-2">
-                        <p class="text-lg text-white font-semibold">Producto Ejemplo 1</p>
-                        <span class="text-green-600 font-bold">$100</span>
+                <?php if (!empty($productos_relacionados)): ?>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <?php foreach ($productos_relacionados as $prod_rel): ?>
+                            <a href="product.php?id=<?php echo htmlspecialchars($prod_rel['id_producto']); ?>"
+                                class="block h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col text-white no-underline hover:opacity-90">
+                                <img src="<?php echo htmlspecialchars($prod_rel['imagen_principal'] ? (str_starts_with($prod_rel['imagen_principal'], '../') ? $prod_rel['imagen_principal'] : '../' . $prod_rel['imagen_principal']) : '../recursos/placeholder.png'); ?>"
+                                    alt="<?php echo htmlspecialchars($prod_rel['Nombre']); ?>"
+                                    class="w-full h-[300px] object-cover rounded mb-2">
+                                <p class="text-lg font-semibold"><?php echo htmlspecialchars($prod_rel['Nombre']); ?></p>
+                                <span class="text-green-400 font-bold">
+                                    $<?php echo number_format($prod_rel['Precio'], 2); ?>
+                                </span>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
-                    <div class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col">
-                        <img src="../recursos/productos/huron.jpg" alt="Otro producto más"
-                            class="w-full h-[300px] object-cover rounded mb-2">
-                        <p class="text-lg text-white font-semibold">Producto Ejemplo 2</p>
-                        <span class="text-green-600 font-bold">$150</span>
-                    </div>
-                </div>
+                <?php else: ?>
+                    <p class="text-gray-500">Este vendedor no tiene más productos disponibles por el momento.</p>
+                <?php endif; ?>
             </section>
 
-        <?php endif; ?>
+        <?php endif; // fin del contenido ?>
 
         <div id="modalAnadirLista" class="modal">
             <div class="modal-content">

@@ -89,7 +89,7 @@ while ($row = mysqli_fetch_assoc($resultCategorias)) {
             // Mostrar los productos
             if (mysqli_num_rows($resultadoProductos) > 0) {
                 while ($producto = mysqli_fetch_assoc($resultadoProductos)) {
-                    echo '<a href="product.php?id=' . $producto['id_producto'] . '" class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col">';
+                    echo '<a href="product.php?id=' . $producto['id_producto'] . '" class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col hover:opacity-90">';
                     
                     // Carrusel con SwiperJS
                     echo '<div class="h-[300px] w-full bg-orange-500 rounded-[8px] overflow-hidden">
@@ -117,28 +117,6 @@ while ($row = mysqli_fetch_assoc($resultCategorias)) {
                     echo '<h2 class="text-lg font-bold">'.$producto['Nombre'].'</h2>';
                     echo '<p class="text-md">$'.$producto['Precio'].'</p>';
                     echo '</div>';
-                    
-                    // Formulario para añadir el producto a una lista
-                    if ($id_usuario !== null) {
-                        $consultaListas = "SELECT * FROM ListaUsuario WHERE id_usuario = $id_usuario";
-                        $resultadoListas = mysqli_query($conexion, $consultaListas);
-                        if (mysqli_num_rows($resultadoListas) > 0) {
-                            echo '<form action="../modelos/agregar_a_lista.php" method="POST" class="mt-4">';
-                            echo '<input type="hidden" name="id_producto" value="'.$producto['id_producto'].'">';
-                            echo '<select name="id_lista" class="w-full p-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">';
-                            while ($lista = mysqli_fetch_assoc($resultadoListas)) {
-                                echo '<option value="'.$lista['id_lista'].'">'.$lista['NombreLista'].'</option>';
-                            }
-                            echo '</select>';
-                            echo '<button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">Añadir a la Lista</button>';
-                            echo '</form>';
-                        } else {
-                            echo '<p>No tienes listas para añadir productos.</p>';
-                        }
-                    } else {
-                        echo "<p class='text-red-500'>Inicia sesión para poder guardar productos en tus listas.</p>";
-                    }
-
                     echo '</a>'; // Fin tarjeta
                 }
             } else {
