@@ -149,6 +149,16 @@ CREATE TABLE Cotizacion (
 	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
 
+CREATE TABLE ValoracionesUsuario (
+        id_valoracion INT AUTO_INCREMENT PRIMARY KEY,
+        id_producto INT,
+        id_usuario INT,
+        puntuacion INT NOT NULL CHECK (puntuacion >= 1 AND puntuacion <= 5),
+        fecha_valoracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (id_producto) REFERENCES Producto(id_producto) ON DELETE CASCADE,
+        FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario) ON DELETE CASCADE,
+        UNIQUE KEY idx_usuario_producto_valoracion (id_usuario, id_producto) -- Para que un usuario valore un producto una sola vez
+);
 
 /*
 CREATE TABLE IntentosLogin (
