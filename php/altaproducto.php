@@ -32,23 +32,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $categoriaSeleccionada = $_POST['categoria'];
 
-    if ($categoriaSeleccionada == "nueva") {
+   /* if ($categoriaSeleccionada == "nueva") {
         $nuevaCategoria = mysqli_real_escape_string($conexion, $_POST['nuevaCategoria']);
         $descripcionCategoria = mysqli_real_escape_string($conexion, $_POST['descripcionCategoria']);
 
-       /* // Insertar nueva categoría
-        $stmt = $conexion->prepare("INSERT INTO Categoria (NombreCategoria, Descripcion, id_usuario) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $nuevaCategoria, $descripcionCategoria, $usuarioId);
-        if (!$stmt->execute()) {
+       // Insertar nueva categoría
+       // $stmt = $conexion->prepare("INSERT INTO Categoria (NombreCategoria, Descripcion, id_usuario) VALUES (?, ?, ?)");
+      //  $stmt->bind_param("ssi", $nuevaCategoria, $descripcionCategoria, $usuarioId);
+        //if (!$stmt->execute()) {
     // ANTES: die('Error al crear la nueva categoría: ' . $stmt->error);
     // DESPUÉS:
-    echo json_encode(['success' => false, 'mensaje' => 'Error al crear la nueva categoría: ' . $stmt->error]);
-    exit();
-}*/
+    //echo json_encode(['success' => false, 'mensaje' => 'Error al crear la nueva categoría: ' . $stmt->error]);
+    //exit();
+//}
 
         // Obtener el ID de la nueva categoría creada
         $categoriaSeleccionada = mysqli_insert_id($conexion);
-    }
+    }*/
 
     // Insertar el producto
     $stmt = $conexion->prepare("INSERT INTO Producto 
