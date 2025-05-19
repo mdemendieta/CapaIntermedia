@@ -38,7 +38,7 @@ if ($stmt) {
         // Si el avatar es el por defecto y no existe en la carpeta usuarios, ajústamos para que apunte directamente a recursos
         if ($avatar_filename === 'perfilvacio.jpg' && !file_exists($_SERVER['DOCUMENT_ROOT'] . '/recursos/usuarios/' . $avatar_filename) ) {
  
-             $project_root_relative_path = '/CapaIntermedia/'; 
+             $project_root_relative_path = '/PWCI/'; 
              if (file_exists($_SERVER['DOCUMENT_ROOT'] . $project_root_relative_path . 'recursos/' . $avatar_filename)){
                 $avatar_path = '../recursos/' . $avatar_filename;
              } else {

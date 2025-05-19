@@ -23,7 +23,7 @@ if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
             if (!empty($user['avatar'])) {
                 // Asumiendo que los avatares están en /recursos/usuarios/
                 // Necesitas ajustar la ruta base si es diferente en tu servidor al construir la URL relativa al frontend
-                $potentialPath = $_SERVER['DOCUMENT_ROOT'] . '/CapaIntermedia/recursos/usuarios/' . $user['avatar']; // Ajusta '/CapaIntermedia/' si tu estructura es diferente
+                $potentialPath = $_SERVER['DOCUMENT_ROOT'] . '/PWCI/recursos/usuarios/' . $user['avatar']; // Ajusta '/CapaIntermedia/' si tu estructura es diferente
                 if (file_exists($potentialPath)) {
                     $avatarPath = '../recursos/usuarios/' . htmlspecialchars($user['avatar']);
                 }
