@@ -29,7 +29,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 p.Valoracion AS ProductoValoracion,
                 p.Tipo AS ProductoTipo,
                 p.id_vendedor AS ProductoVendedorID,
-                p.Inventario,
                 u.nombre_usuario AS VendedorNombreUsuario, 
                 u.nombre AS VendedorNombre,
                 u.apellido_P AS VendedorApellidoP,
@@ -232,11 +231,6 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                             <?php echo nl2br(htmlspecialchars($producto['ProductoDescripcion'])); ?>
                         </p>
                     <?php endif; ?>
-                    <?php if (isset($producto['Inventario'])): ?>
-                        <p class="text-gray-600 mt-2 text-sm">
-                            <strong>Existencias:</strong> <?php echo htmlspecialchars($producto['Inventario']); ?> unidades disponibles
-                        </p>
-                    <?php endif; ?>
 
                     <?php if (isset($producto['ProductoTipo']) && $producto['ProductoTipo'] === 'Cotizar'): ?>
                         <a id="cotizar-btn" href="chat.php?contactId=<?php echo htmlspecialchars($producto['ProductoVendedorID']); ?>"
@@ -262,7 +256,7 @@ $image_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                             </button>
                             <?php endif; ?>
                         <?php else: ?>
-                            <p class="bg-gray-200 text-gray-600 text-lg rounded p-2">[ Modo Visualización ]</p>
+                            <p class="bg-gray-200 text-gray-600 text-lg rounded p-2">[ Modo Visualización]</p>
                             <script>
                                 document.getElementById('cotizar-btn').href="#";
                             </script>
