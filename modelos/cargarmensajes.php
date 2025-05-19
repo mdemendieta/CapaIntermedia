@@ -36,7 +36,7 @@ $result = $stmt->get_result();
 if ($row = $result->fetch_assoc()) {
     $idConversacion = $row['id_conversacion'];
 } else {
-    echo json_encode(['error' => 'No hay conversación existente']);
+    echo json_encode(['error' => 'Aún no hay mensajes']);
     exit;
 }
 
