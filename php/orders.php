@@ -73,7 +73,7 @@ $conexion_orders->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles_orders.css"> </head>
-<body class="bg-gray-100"> <div class="orders-container w-full max-w-4xl mx-auto"> {/* Ajusta el contenedor si es necesario */}
+<body class="bg-gray-100"> <div class="orders-container w-full max-w-4xl mx-auto"> 
     <h2 class="text-2xl font-bold text-gray-700 mb-6 text-center">Mi Historial de Pedidos</h2>
 
     <div id="orders-list" class="orders-list space-y-4">
