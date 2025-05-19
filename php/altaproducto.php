@@ -36,12 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nuevaCategoria = mysqli_real_escape_string($conexion, $_POST['nuevaCategoria']);
         $descripcionCategoria = mysqli_real_escape_string($conexion, $_POST['descripcionCategoria']);
 
-        // Insertar nueva categoría
+       /* // Insertar nueva categoría
         $stmt = $conexion->prepare("INSERT INTO Categoria (NombreCategoria, Descripcion, id_usuario) VALUES (?, ?, ?)");
         $stmt->bind_param("ssi", $nuevaCategoria, $descripcionCategoria, $usuarioId);
         if (!$stmt->execute()) {
-            die('Error al crear la nueva categoría: ' . $stmt->error);
-        }
+    // ANTES: die('Error al crear la nueva categoría: ' . $stmt->error);
+    // DESPUÉS:
+    echo json_encode(['success' => false, 'mensaje' => 'Error al crear la nueva categoría: ' . $stmt->error]);
+    exit();
+}*/
 
         // Obtener el ID de la nueva categoría creada
         $categoriaSeleccionada = mysqli_insert_id($conexion);
@@ -372,10 +375,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const videos = archivosSeleccionados.filter(f => f.file.type.startsWith('video/'));
 
 
-            if (imagenes.length < 3 || videos.length < 1) {
+            /*if (imagenes.length < 3 || videos.length < 1) {
                 alert("Debes subir al menos 3 imágenes y 1 video.");
                 return;
-            }
+            }*/
 
             const formData = new FormData(formPublicacion);
 
