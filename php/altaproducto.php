@@ -1,6 +1,6 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start(); // Asegúrate de tener la sesión iniciada
+if (session_status() ===  PHP_SESSION_NONE) {
+    session_start(); 
 }
 
 // Verifica si el usuario está en sesión
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
                 // Validar que sea una imagen o video
-                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm', 'avi', 'mov'];
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp','mp4', 'webm','ogv', 'avi', 'mov'];
 
                 if (in_array($fileExtension, $allowedExtensions)) {
 
@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="block text-sm font-medium text-gray-700 mb-2">Tipo</span>
                 <div class="flex items-center space-x-6">
                     <label class="inline-flex items-center">
-                        <input type="radio" name="tipo" value="vender" checked
+                        <input type="radio" name="tipo" value="vender" checked onchange="validarTipo()"
                             class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                         <span class="ml-2 text-gray-700">Vender</span>
                     </label>
@@ -259,6 +259,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (input.checked && input.value === 'cotizar') {
                     precioInput.disabled = true;
                     precioInput.value = '';
+                }else{
+                    precioInput.disabled = false;
                 }
             });
         }

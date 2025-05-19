@@ -1,5 +1,19 @@
 <?php
-session_start();
+if (session_status() ===  PHP_SESSION_NONE) {
+    session_start(); 
+}
+
+require_once '../modelos/conexion.php'; // Tu conexión a MySQL
+
+$db = new Database();
+$conexion = $db->getConexion();
+// Obtener categorías existentes
+$queryCategorias = "SELECT id_categoria, NombreCategoria FROM Categoria";
+$resultCategorias = mysqli_query($conexion, $queryCategorias);
+$categorias = [];
+while ($row = mysqli_fetch_assoc($resultCategorias)) {
+    $categorias[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +29,8 @@ session_start();
 <body class="bg-gray-100">
 
     <header>
-        <?php include('navbar.php');    
+        <?php 
+        include('navbar.php');    
         if (isset($_SESSION['id_usuario'])) {
             echo "<p>Sesión iniciada. ID de usuario: " . $_SESSION['id_usuario']."</p>";
         } else {
@@ -49,12 +64,11 @@ session_start();
 
                 <div>
                     <label for="category-filter" class="block text-gray-700 font-medium mb-1">Categorías:</label>
-                    <select id="category-filter" name="category-filter[]" multiple class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-                        <option value="electronica">Electrónica</option>
-                        <option value="ropa">Ropa</option>
-                        <option value="hogar">Hogar</option>
-                        <option value="juguetes">Juguetes</option>
-                        <option value="deportes">Deportes</option>
+                    <select id="category-filter" name="category-filter[]" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        <option value="" disabled selected>Selecciona una categoría</option>
+                        <?php foreach ($categorias as $categoria): ?>
+                            <option value="<?= $categoria['id_categoria'] ?>"><?= $categoria['NombreCategoria'] ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
@@ -62,7 +76,7 @@ session_start();
 
         <div class="grid grid-cols-4 gap-5">
             <?php
-            include '../modelos/conexion.php'; // Asegúrate de tener la conexión a la base de datos
+            require_once '../modelos/conexion.php'; // Asegúrate de tener la conexión a la base de datos
             $db = new Database();
             $conexion = $db->getConexion();
             $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : null;
@@ -75,7 +89,7 @@ session_start();
             // Mostrar los productos
             if (mysqli_num_rows($resultadoProductos) > 0) {
                 while ($producto = mysqli_fetch_assoc($resultadoProductos)) {
-                    echo '<div class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col">';
+                    echo '<a href="product.php?id=' . $producto['id_producto'] . '" class="h-[400px] bg-gray-800 rounded-[10px] p-2 flex-col">';
                     
                     // Carrusel con SwiperJS
                     echo '<div class="h-[300px] w-full bg-orange-500 rounded-[8px] overflow-hidden">
@@ -125,7 +139,7 @@ session_start();
                         echo "<p class='text-red-500'>Inicia sesión para poder guardar productos en tus listas.</p>";
                     }
 
-                    echo '</div>'; // Fin tarjeta
+                    echo '</a>'; // Fin tarjeta
                 }
             } else {
                 echo '<p>No hay productos disponibles.</p>';

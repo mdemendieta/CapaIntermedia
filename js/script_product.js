@@ -1,27 +1,37 @@
-// Cambiar imagen principal al hacer clic en una miniatura
-function changeImage(element) {
-    document.getElementById("main-img").src = element.src;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const thumbnailGallery = document.getElementById('thumbnail-gallery');
+  const mainPreviewContainer = document.getElementById('main-preview-container');
 
-// Sistema de valoración con estrellas
-function rateProduct(rating) {
-    const stars = document.querySelectorAll(".star");
-    stars.forEach((star, index) => {
-        star.classList.toggle("active", index < rating);
+  if (thumbnailGallery && mainPreviewContainer) {
+    const thumbnails = thumbnailGallery.querySelectorAll('.thumbnail-item');
+
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const type = thumb.dataset.type;
+        const src = thumb.dataset.src;
+        const altText = thumb.alt || `Vista previa del producto`; // Para imágenes
+
+        mainPreviewContainer.innerHTML = ''; // Limpiar el contenedor
+
+        if (type === 'image') {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = altText;
+          img.className = 'max-w-full max-h-full object-contain rounded';
+          mainPreviewContainer.appendChild(img);
+        } else if (type === 'video') {
+          const video = document.createElement('video');
+          video.src = src;
+          video.className = 'max-w-full max-h-full object-contain rounded';
+          video.controls = true;
+          video.autoplay = true;
+          // video.muted = true; // Puedes decidir si quieres que el video al hacer clic esté silenciado o no
+          mainPreviewContainer.appendChild(video);
+        }
+      });
     });
-    document.getElementById("rating-text").textContent = rating.toFixed(1);
-}
-
-// Manejo de comentarios
-document.getElementById("add-comment").addEventListener("click", () => {
-    const commentInput = document.getElementById("comment-input");
-    const commentText = commentInput.value.trim();
-    if (commentText === "") return;
-
-    const commentList = document.getElementById("comments-list");
-    const commentElement = document.createElement("p");
-    commentElement.textContent = commentText;
-    commentList.appendChild(commentElement);
-
-    commentInput.value = "";
+  } else {
+    if (!thumbnailGallery) console.error("Elemento con id 'thumbnail-gallery' no encontrado.");
+    if (!mainPreviewContainer) console.error("Elemento con id 'main-preview-container' no encontrado.");
+  }
 });
