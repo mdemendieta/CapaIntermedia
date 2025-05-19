@@ -15,7 +15,7 @@ session_start();
 <body class="bg-gray-100">
 
     <header>
-        <?php include('navbar.php');    
+        <?php include('../vistas/navbar.php');    
         if (isset($_SESSION['id_usuario'])) {
             echo "<p>Sesión iniciada. ID de usuario: " . $_SESSION['id_usuario']."</p>";
         } else {
