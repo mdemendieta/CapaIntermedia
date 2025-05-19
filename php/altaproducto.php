@@ -375,10 +375,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const videos = archivosSeleccionados.filter(f => f.file.type.startsWith('video/'));
 
 
-            /*if (imagenes.length < 3 || videos.length < 1) {
+            if (imagenes.length < 3 || videos.length < 1) {
                 alert("Debes subir al menos 3 imágenes y 1 video.");
                 return;
-            }*/
+            }
 
             const formData = new FormData(formPublicacion);
 
