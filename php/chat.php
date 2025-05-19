@@ -17,7 +17,7 @@ if (isset($_SESSION['nombre_usuario'])) {
 </head>
 
 <header>
-    <?php include 'navbar.php'; ?>
+    <?php include '../vistas/navbar.php'; ?>
 </header>
 
 <body>

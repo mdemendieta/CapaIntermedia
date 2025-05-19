@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body class="bg-orange-100">
 
-    <?php include 'navbar.php'; ?>
+    <?php include '../vistas/navbar.php'; ?>
 
     <!-- Asegúrate de tener Tailwind CSS cargado en tu proyecto -->
     <div id="from-status"></div>
