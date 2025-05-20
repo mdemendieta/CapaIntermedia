@@ -3,8 +3,6 @@ if (session_status() ===  PHP_SESSION_NONE) {
     session_start();
 }
 
-// Autenticación y obtención de categorías (como en tu código original)
-// ... (código para verificar $_SESSION['id_usuario'] y obtener $categorias) ...
 // Si el usuario no está logueado y es una petición POST (ajax)
 if (!isset($_SESSION['id_usuario'])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -188,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         
                         $newFileName = "producto_" . $idProducto . "_" . uniqid() . "." . $fileExtension;
                         $destinationPath = $uploadDirectory . $newFileName;
-                        $urlParaBd = "recursos/productos/" . $newFileName;
+                        $urlParaBd = "../recursos/productos/" . $newFileName;
 
                         if (move_uploaded_file($fileTmpName, $destinationPath)) {
                             $stmtMultimedia = $conexion->prepare("INSERT INTO MultimediaProducto (id_producto, URL) VALUES (?, ?)");

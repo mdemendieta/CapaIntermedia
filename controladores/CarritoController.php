@@ -1,72 +1,77 @@
 <?php
-// Archivo: PWCI/controladores/CarritoController.php
+// Archivo: CapaIntermedia/controladores/carrito_controller.php
 session_start();
 header('Content-Type: application/json');
 
-require_once '../modelos/conexion.php';
+// Ajusta las rutas según tu estructura de carpetas
+require_once '../modelos/conexion.php'; 
 require_once '../modelos/CarritoModel.php';
 
 $response = ['success' => false, 'message' => 'Acción no válida o datos incompletos.', 'in_cart' => false];
 
 if (!isset($_SESSION['id_usuario'])) {
     $response['message'] = 'Usuario no autenticado. Por favor, inicia sesión.';
+    // $response['redirect_login'] = true; // Opcional, para el frontend
     echo json_encode($response);
     exit;
 }
 
 $id_usuario = $_SESSION['id_usuario'];
 
-$db = new Database(); // Crear instancia de Database
-$conexion = $db->getConexion(); // Obtener el objeto de conexión mysqli
-$carritoModel = new CarritoModel($conexion); // Pasar la conexión al modelo
+// La conexión a la BD se crea dentro del modelo ahora.
+$carritoModel = new CarritoModel(); // CarritoModel ahora maneja su propia conexión
 
-$action = $_POST['action'] ?? $_GET['action'] ?? null;
-$id_producto = filter_input(INPUT_POST, 'id_producto', FILTER_VALIDATE_INT) ?? filter_input(INPUT_GET, 'id_producto', FILTER_VALIDATE_INT);
+$action = $_POST['action'] ?? $_GET['action'] ?? null; // Permitir action por GET para 'check_status'
+
+$id_producto = null;
+if (isset($_POST['id_producto'])) {
+    $id_producto = filter_var($_POST['id_producto'], FILTER_VALIDATE_INT);
+} elseif (isset($_GET['id_producto'])) { // Para 'check_status'
+    $id_producto = filter_var($_GET['id_producto'], FILTER_VALIDATE_INT);
+}
 
 switch ($action) {
     case 'check_status':
-        // ... (código existente) ...
+        if ($id_producto) {
+            $enCarrito = $carritoModel->productoEnCarrito($id_usuario, $id_producto);
+            $response = ['success' => true, 'in_cart' => $enCarrito];
+        } else {
+            $response['message'] = 'ID de producto no proporcionado para la verificación.';
+        }
         break;
 
     case 'add_to_cart':
-        // ... (código existente) ...
-        // Este se usa desde product.php
+        if ($id_producto) {
+            // La cantidad siempre será 1 desde product.php para esta lógica de "añadir/quitar"
+            $cantidad = 1; 
+            $result = $carritoModel->agregarProducto($id_usuario, $id_producto, $cantidad);
+            $response = $result; // $result ya tiene 'success' y 'message'
+            // Confirmar el estado actual para el botón
+            if ($response['success']) { // Solo si la operación de BD fue exitosa
+                 $response['in_cart'] = $carritoModel->productoEnCarrito($id_usuario, $id_producto);
+            }
+        } else {
+            $response['message'] = 'ID de producto no proporcionado para agregar.';
+        }
         break;
 
     case 'remove_from_cart':
         if ($id_producto) {
             $result = $carritoModel->eliminarProducto($id_usuario, $id_producto);
             $response = $result;
-            if ($response['success']) {
-                $response['in_cart'] = false; // Después de eliminar, ya no está en el carrito
+            // Confirmar el estado actual para el botón
+             if ($response['success']) { // Solo si la operación de BD fue exitosa
+                $response['in_cart'] = $carritoModel->productoEnCarrito($id_usuario, $id_producto); // Debería ser false
             }
         } else {
             $response['message'] = 'ID de producto no proporcionado para eliminar.';
         }
         break;
-
-    case 'update_quantity_in_cart': // Nueva acción para carrito.php
-        $cantidad = filter_input(INPUT_POST, 'cantidad', FILTER_VALIDATE_INT);
-        if ($id_producto && $cantidad !== null) {
-            if ($cantidad < 1) { // Si la cantidad es 0 o menos, eliminarlo.
-                 $result = $carritoModel->eliminarProducto($id_usuario, $id_producto);
-                 $response = $result;
-                 if ($response['success']) $response['in_cart'] = false;
-            } else {
-                $result = $carritoModel->actualizarCantidadProducto($id_usuario, $id_producto, $cantidad);
-                $response = $result;
-                if ($response['success']) $response['in_cart'] = true; // Asumimos que sigue en el carrito
-            }
-        } else {
-            $response['message'] = 'Datos incompletos para actualizar cantidad (producto o cantidad).';
-        }
-        break;
     
     default:
-        $response['message'] = 'Acción desconocida: ' . htmlspecialchars((string)$action);
+        $response['message'] = 'Acción desconocida: ' . htmlspecialchars($action);
         break;
 }
 
-$conexion->close(); // Cerrar la conexión
 echo json_encode($response);
 ?>

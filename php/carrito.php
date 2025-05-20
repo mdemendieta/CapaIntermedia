@@ -119,7 +119,11 @@ if (isset($_SESSION['id_usuario'])) {
             </div>
 
             <div class="mt-6 flex justify-center md:justify-end">
-                <button class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300 font-semibold text-lg">Proceder al Pago</button>
+                    <button 
+                    onclick="procederAlPago(<?php echo $totalCarrito; ?>)" 
+                    class="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-300 font-semibold text-lg">
+                    Proceder al Pago
+                </button>            
             </div>
         <?php endif; ?>
     </div>
@@ -200,12 +204,12 @@ if (isset($_SESSION['id_usuario'])) {
                 if (document.querySelectorAll('#cart-items-container > div[data-id-producto]').length === 0) {
                     const mainContent = document.getElementById('main-content');
                     if(mainContent){
-                        mainContent.innerHTML = \`
+                        mainContent.innerHTML = `
                             <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Carrito de Compras</h1>
                             <p class="text-center text-gray-600 py-10">Tu carrito está vacío.</p>
                             <div class="text-center mt-4">
                                 <a href="landing.php" class="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors duration-300">Seguir comprando</a>
-                            </div>\`;
+                            </div>`;
                     }
                 }
             } else {
@@ -242,6 +246,15 @@ if (isset($_SESSION['id_usuario'])) {
 
     // Para el enlace "iniciar sesión" si el usuario no está logueado.
     // La función showLoginModal() se asume que está definida globalmente por navbar.js o similar.
-</script>
+function procederAlPago(total) {
+        // Construct the URL for venta.php with the total as a query parameter
+        const urlVenta = `../php/venta.php?total=${total}`;
+        // Open venta.php in a new window titled "venta.php"
+        // Note: Some browsers might block pop-ups if not initiated by a direct user action.
+        // A simple click on a button is usually fine.
+        window.open(urlVenta, 'venta.php', 'width=800,height=700,scrollbars=yes,resizable=yes');
+    }
+
+    </script>
 </body>
 </html>

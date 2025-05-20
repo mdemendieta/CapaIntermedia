@@ -21,6 +21,7 @@ if ($rol === 'Cliente') {
     ];
 } elseif ($rol === 'Vendedor') {
     $paginas = [
+        'Inicio' => 'landing.php',
         'Chat' => 'chat.php',
         'Publicar Producto' => 'altaproducto.php'
     ];
